@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import {
     StyleSheet, Text, View, TextInput,
@@ -6,6 +7,7 @@ import {
 } from 'react-native';
 
 export default function SignIn() {
+    const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [step, setStep] = useState(0);
@@ -21,8 +23,8 @@ export default function SignIn() {
     }
 
     function handleSubmit() {
-        console.log('Dados enviados');
         console.log({ email, password });
+        navigation.navigate('Home');
     }
 
     function validateForm() {
