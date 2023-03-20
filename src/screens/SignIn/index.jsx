@@ -95,10 +95,10 @@ export default function SignIn() {
 
                 ) : (
                     <KeyboardAvoidingView style={styles.form} behavior="padding">
-                        <Text style={styles.label}>Nome</Text>
+                        <Text style={styles.label}>Crie seu Usuário</Text>
                         <TextInput
                             style={styles.input}
-                            placeholder="Digite seu Nome"
+                            placeholder="Crie seu usuário"
                             value={name}
                             onChangeText={setName}
                         />
@@ -129,7 +129,7 @@ export default function SignIn() {
                         />
 
                         <TouchableOpacity style={styles.button} onPress={validateForm}>
-                            <Text style={styles.buttonText}>Cadastrar</Text>
+                            <Text style={styles.buttonText}>Criar Conta</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={changeForm}>
@@ -164,22 +164,23 @@ const styles = StyleSheet.create({
     label: {
         color: '#fff',
         fontSize: 16,
-        marginBottom: 12,
+        marginBottom: 8,
         marginTop: 20,
-        marginLeft: 10,
+        marginLeft: 4,
     },
     input: {
         backgroundColor: '#fff',
         width: '100%',
         height: 40,
-        borderRadius: 20,
+        borderRadius: 10,
         padding: 12,
         paddingHorizontal: 20,
+        marginBottom: 9,
     },
     button: {
-        backgroundColor: '#696969',
+        backgroundColor: '#6700B8',
         height: 40,
-        borderRadius: 20,
+        borderRadius: 8,
         marginTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
