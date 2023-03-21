@@ -5,6 +5,7 @@ import {
     ImageBackground, TouchableOpacity, KeyboardAvoidingView,
     Alert, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
+import Button from '../../components/Button';
 
 export default function SignIn() {
     const navigation = useNavigation();
@@ -81,9 +82,7 @@ export default function SignIn() {
                             onChangeText={setPassword}
                         />
 
-                        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                            <Text style={styles.buttonText}>Entrar</Text>
-                        </TouchableOpacity>
+                        <Button label="Entrar" onPress={handleSubmit}/>
 
                         <TouchableOpacity onPress={changeForm}>
                             <Text style={[styles.label, {
@@ -128,9 +127,7 @@ export default function SignIn() {
                             onChangeText={setRptPassword}
                         />
 
-                        <TouchableOpacity style={styles.button} onPress={validateForm}>
-                            <Text style={styles.buttonText}>Criar Conta</Text>
-                        </TouchableOpacity>
+                        <Button label="Criar Conta" onPress={handleSubmit}/>
 
                         <TouchableOpacity onPress={changeForm}>
                             <Text style={[styles.label, { textAlign: 'center' }]}>Ja possuo uma conta</Text>
@@ -177,19 +174,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginBottom: 9,
     },
-    button: {
-        backgroundColor: '#6700B8',
-        height: 40,
-        borderRadius: 8,
-        marginTop: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        textTransform: 'uppercase',
-        fontWeight: 'bold',
-    }
+    
 
 });

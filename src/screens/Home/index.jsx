@@ -1,14 +1,29 @@
 import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import Logo from '../../components/imgs/Vector.png';
-import Market from '../../components/imgs/Market.png';
-import Water from '../../components/imgs/Blur.png';
-import Ambulance from '../../components/imgs/Ambulance.png';
-import Box from '../../components/imgs/Box.png';
-import BackArrow from '../../components/imgs/BackArrow.png';
+
 
 export default function Home() {
     const navigation = useNavigation();
+
+    const pages = {
+        id: '1',
+        title: 'Market',
+        Route: 'MarketRoute',
+        icon: 'user'
+    }
+    {
+        id: '2',
+        title: 'Water',
+        Route: 'WaterRoute',
+        icon: 'user'
+    }
+    {
+        id: '3',
+        title: 'Ambulance',
+        Route: 'AmbulanceRoute',
+        icon: {Ambulance},
+    }
+
     return (
 
         <ImageBackground
@@ -23,24 +38,26 @@ export default function Home() {
             <Text style={styles.title}>CATEGORIAS</Text>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-                <Image source={BackArrow} resizeMode="contain" style={styles.backArrow}/>
+
             </TouchableOpacity>
             
+{/*             
             <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('Categories')}>
-            <Image source={Market} resizeMode='stretch' style={styles.categoria1} />
+
             </TouchableOpacity>
 
+
             <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Categories')}>
-            <Image source={Water} resizeMode='stretch' style={styles.categoria2} />
+
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('Categories')}>
-            <Image source={Ambulance} resizeMode='stretch' style={styles.categoria3} />
+
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Categories')}>
             <Image source={Box} resizeMode='stretch' style={styles.categoria4} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
         </ImageBackground>
 
@@ -56,7 +73,7 @@ const styles = StyleSheet.create({
 
     backArrow:{
         position: 'absolute',
-        bottom: 232,
+        bottom: 193,
         right: 100,
         width: 30,
     },
@@ -71,8 +88,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-        position: 'relative',
-        bottom: 230
+        position: 'absolute',
+        top: 170,
     },
     buttonText: {
         color: 'white',
