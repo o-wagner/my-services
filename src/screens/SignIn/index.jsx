@@ -59,7 +59,7 @@ export default function SignIn() {
                 resizeMode="stretch"
             >
 
-                <Text style={styles.title}>{step === 0 ? 'Bem-vindo' : 'Cadastre-se'}</Text>
+                <Text style={styles.title}>{step === 0 ? 'Bem-vindo' : 'Crie Sua Conta'}</Text>
 
                 {step === 0 ? (
                     <KeyboardAvoidingView style={styles.form} behavior="padding">
