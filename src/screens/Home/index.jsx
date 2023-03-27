@@ -1,28 +1,42 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import Card from '../../components/Card';
+import Button from '../../components/Button';
+import Logo from '../../components/imgs/Vector.png';
+import BackArrow from '../../components/imgs/BackArrow.png';
+import { Text, StyleSheet, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
+
 
 
 export default function Home() {
     const navigation = useNavigation();
 
-    const pages = {
-        id: '1',
-        title: 'Market',
-        Route: 'MarketRoute',
-        icon: 'user'
-    }
-    {
-        id: '2',
-        title: 'Water',
-        Route: 'WaterRoute',
-        icon: 'user'
-    }
-    {
-        id: '3',
-        title: 'Ambulance',
-        Route: 'AmbulanceRoute',
-        icon: {Ambulance},
-    }
+    const pages = [
+        {
+            id: '1',
+            title: 'Mercados',
+            Route: 'MarketRoute',
+            icon: 'ShoppingCart'
+        },
+        {
+            id: '2',
+            title: 'Emergência',
+            Route: 'AmbulanceRoute',
+            icon: 'FirstAid',
+            
+        },
+        {
+            id: '3',
+            title: 'Comida',
+            Route: 'FoodRoute',
+            icon: 'ForkKnife',
+        },
+        {
+            id: '4',
+            title: 'Mais',
+            Route: 'PlusRoute',
+            icon: 'Plus'
+        }
+    ]
 
     return (
 
@@ -34,31 +48,27 @@ export default function Home() {
             }}
             resizeMode="stretch"
         >
-            <Image source={Logo} resizeMode="contain" style={styles.logo} />
-            <Text style={styles.title}>CATEGORIAS</Text>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image source={BackArrow} style={styles.backArrow} resizeMode="stretch"/>
+                </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-
-            </TouchableOpacity>
+                <Image source={Logo} resizeMode="contain" style={styles.logo} />
+                <Text style={styles.title}>CATEGORIAS</Text>
+                
+                
+                
+            </View>
             
-{/*             
-            <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('Categories')}>
 
-            </TouchableOpacity>
-
-
-            <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Categories')}>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('Categories')}>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button4} onPress={() => navigation.navigate('Categories')}>
-            <Image source={Box} resizeMode='stretch' style={styles.categoria4} />
-            </TouchableOpacity> */}
-
+            <View style={styles.cardArea}>
+                {pages.map((item) => {
+                    return (
+                        <Card key={item.id} item={item} onPress={() => navigation.navigate(item.route)} />
+                    )
+                })}
+            </View>
+            
         </ImageBackground>
 
     )
@@ -67,29 +77,33 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
 
     backArrow:{
-        position: 'absolute',
-        bottom: 193,
+        height: 35,
+        width: 35,
+        position:'absolute',
         right: 100,
-        width: 30,
+        top: 35,
+    },
+    header:{
+        marginTop: 80,
+        width:'100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15
     },
 
     logo: {
         width: 180,
-        position: 'absolute',
-        height: 100,
-        top: 90,
+
     },
     title: {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-        position: 'absolute',
-        top: 170,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     buttonText: {
         color: 'white',
@@ -98,79 +112,13 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 18,
     },
-
-    button1:{
-        backgroundColor: '#D9D9D9',
-        height: 120,
-        width: 120,
-        borderRadius: 8,
-        marginTop: 30,
-        position: 'absolute',
-        top: 280,
-        left: 60,
-        justifyContent: 'center',
-    },
-
-    button2:{
-        backgroundColor: '#d9d9d9',
-        height: 120,
-        width: 120,
-        borderRadius: 8,
-        marginTop: 30,
-        position: 'absolute',
-        top: 280,
-        left: 210,
-        justifyContent: 'center',
-    },
-    button3:{
-        backgroundColor: '#d9d9d9',
-        height: 120,
-        width: 120,
-        borderRadius: 8,
-        marginTop: 30,
-        position: 'absolute',
-        top: 430,
-        left: 60,
-        justifyContent: 'center',
-    },
-
-    button4:{
-        backgroundColor: '#d9d9d9',
-        height: 120,
-        width: 120,
-        borderRadius: 8,
-        marginTop: 30,
-        position: 'absolute',
-        top: 430,
-        left: 210,
-        justifyContent: 'center',
-    },
-
-    categoria1:{
-        position: 'absolute',
-        width: 55,
-        height: 55,
-        right: 34,
-    },
-    categoria2:{
-        position: 'absolute',
-        width: 55,
-        height: 55,
-        left: 34,
-    },
-    categoria3:{
-        position: 'absolute',
-        width: 55,
-        height: 55,
-        right: 34,
-    },
-
-    categoria4:{
-        position: 'absolute',
-        width: 60,
-        height: 60,
-        left: 30,
-    },
+    cardArea:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+        margin: 30,
+    }
+  
     
 
 })
