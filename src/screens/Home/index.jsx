@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground , View } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground , View, SafeAreaView, ScrollView} from 'react-native';
 import Card from '../../components/Card';
-import BackArrow from '../../components/imgs/BackArrow.png';
 import Logo from '../../components/imgs/Vector.png';
+import {UserCircle, List} from 'phosphor-react-native';
 
 
 export default function Home() {
@@ -10,64 +10,74 @@ export default function Home() {
 
     const pages = [
         {
-            id: '1',
+            id: 1,
             title: 'Mercados',
-            Route: 'MarketRoute',
+            route: 'MarketRoute',
             icon: 'ShoppingCart'
         },
         {
-            id: '2',
+            id: 2,
             title: 'Serviços Locais',
-            Route: 'PhoneRoute',
+            route: 'PhoneRoute',
             icon: 'Phone'
         },
         {
-            id: '3',
+            id: 3,
             title: 'Comida',
-            Route: 'ComidaRoute',
+            route: 'ComidaRoute',
             icon: 'ForkKnife',
         },
         {
-            id: '4',
+            id: 4,
             title: 'Gás & Água',
-            Route: 'WaterRoute',
+            route: 'WaterRoute',
             icon: 'Drop'
 
         },
         {
-            id: '5',
+            id: 5,
             title: 'Emergência',
-            Route: 'EmergecyRoute',
+            route: 'EmergecyRoute',
             icon: 'FirstAid'
 
         },
         {
-            id: '6',
+            id: 6,
             title: 'Mais',
-            Route: 'MaisRoute',
+            route: 'MaisRoute',
             icon: 'Plus'
 
-        },
-
+        }
     ]
 
     return (
-
         <ImageBackground
-            style={styles.container}
-            source={{
-                uri:
-                    'https://png.pngtree.com/thumb_back/fh260/background/20210722/pngtree-dark-purple-gradient-wallpaper-background-image_750294.jpg',
-            }}
-            resizeMode="stretch"
-        >
+                style={styles.background}
+                source={{
+                    uri:
+                        'https://png.pngtree.com/thumb_back/fh260/background/20210722/pngtree-dark-purple-gradient-wallpaper-background-image_750294.jpg',
+                }}
+                resizeMode="stretch"
+            >
+            
+  
             <View style={styles.header}>
-                <Image source={Logo} resizeMode="contain" style={styles.logo} />
-                <Text style={styles.title}>CATEGORIAS</Text>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-                    <Image source={BackArrow} style={styles.backArrow} resizeMode="contain" />
+            <View style={{justifyContent:'center', alignItems: 'center'}}>
+                    <Image source={Logo} resizeMode="contain" style={styles.logo} />
+                </View>
+                <TouchableOpacity style={styles.user} onPress={() => navigation.navigate()}>
+                    <UserCircle size={38} color='#ffffff'/>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('')}>
+                    <List size={40} color='#ffffff'/>
                 </TouchableOpacity>
             </View>
+                
+  
+            <SafeAreaView>
+            <ScrollView>
+             
+            
             <View style={styles.cardArea}>
                 {pages.map((item) => {
                     return (
@@ -75,40 +85,55 @@ export default function Home() {
                     )
                 })}
             </View>
+            </ScrollView>
+            </SafeAreaView>
+            </ImageBackground>
 
-        </ImageBackground>
-
+        
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
     },
-
-    backArrow: {
-        position: 'absolute',
-        bottom: -10,
-        right: 120,
-        width: 30,
+    user:{
+        marginTop: 26,
+        marginLeft: 35,
     },
+    menu:{
+        marginTop: 26,
+        marginLeft: 8,
+    },
+
 
     header:{
+        paddingTop: 60,
+        paddingBottom: 18,
+        backgroundColor:'#2d0b4d',
         width: '100%',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'absolute',
-        top: 10,
-        padding: 85,
+        flexDirection: 'row',
+
     },
+
+    logo: {
+        width: 180,
+        height: 60,
+        marginBottom: 10,
+        marginTop: 15,
+        marginLeft: 60,
+    },
+
     cardArea: {
-        justifyContent: 'space-around',
+        justifyContent:'space-evenly',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        // padding: 120,
-        marginTop: 250,
-        margin: 40,
+        margin: 18,
+        padding: 10,
+
     },
+
     card: {
         backgroundColor: '#bcb8b8',
         width: 120,
@@ -116,35 +141,22 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 10
     },
+
     cardTitle: {
         color: '#43425D',
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 20,
+        fontWeight: '700',
         textTransform: 'uppercase',
         marginTop: 10,
     },
-    logo: {
-        width: 180,
-        height: 100,
-    },
 
-    title: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-        position: 'absolute',
-        top: 170,
-    },
+
     buttonText: {
-        color: 'white',
+        color: '#ffffff',
         fontSize: 16,
         fontWeight: 'bold',
         padding: 10,
         borderRadius: 18,
     },
-
-
-
 })

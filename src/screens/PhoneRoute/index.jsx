@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet , TouchableOpacity } from 'react-native';
 
-export default function Categories(){
+export default function PhoneRoute(){
     const navigation = useNavigation();
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Categorias</Text>
+            <Text style={styles.title}>Serviços Locais</Text>
             <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
                 <Text style={styles.buttonText}>Home</Text>
             </TouchableOpacity>
@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     },
     title:  {
         color: 'orange',
-        fontSize: 50,
-        fontWeight: 'bold'
+        fontSize: 35,
+        fontWeight:'800',
+        textTransform: 'uppercase',
     },
     buttonText: {
         backgroundColor: 'grey',

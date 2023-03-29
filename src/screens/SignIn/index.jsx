@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import Logo from '../../components/imgs/Vector.png';
 import {
     StyleSheet, Text, View, TextInput,
     ImageBackground, TouchableOpacity, KeyboardAvoidingView,
-    Alert, TouchableWithoutFeedback, Keyboard
+    Alert, TouchableWithoutFeedback, Keyboard, Image, Header
 } from 'react-native';
 import Button from '../../components/Button';
 
@@ -59,7 +60,13 @@ export default function SignIn() {
                 resizeMode="stretch"
             >
 
-                <Text style={styles.title}>{step === 0 ? 'Bem-vindo' : 'Crie Sua Conta'}</Text>
+                
+                    <View style={styles.header}>
+                    <Text style={styles.titlelogin}>{step === 0 ? 'Faça Login no' : 'Crie Sua Conta'}</Text>
+                        <Image source={Logo} style={styles.logo} resizeMode="stretch"></Image>
+                        
+                    </View>
+                    
 
                 {step === 0 ? (
                     <KeyboardAvoidingView style={styles.form} behavior="padding">
@@ -148,14 +155,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    header:{
+        height:'10%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
     title: {
         color: '#fff',
-        fontSize: 32,
+        fontSize: 24,
+        marginTop: 10,
         fontWeight: 'bold',
-        marginBottom: 30,
+        fontFamily: 'Helvetica',
+        textTransform: 'uppercase',
+        // marginBottom: 10,
+    },
+    titlelogin:{
+        color: '#fff',
+        fontSize: 18,
+        position: 'absolute',
+        top: 13,
+        left: 1,
+        fontWeight: 'bold',
+        fontFamily: 'Helvetica',
+        textTransform: 'uppercase',
+    },
+    logo:{
+        width: 230,
+        height:70,
+
     },
     form: {
-        marginTop: 30,
+        marginTop: 20,
         width: '70%',
     },
     label: {
