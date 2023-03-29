@@ -1,45 +1,39 @@
-import { useNavigation } from '@react-navigation/native';
-import {
-    View, Image,
-    Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ScrollView, TextInput
-} from 'react-native';
+import { useNavigation, useState } from '@react-navigation/native';
+import { View, Text, StyleSheet, ImageBackground, SafeAreaView, ScrollView} from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
-import Logo from '../../components/imgs/Vector.png';
 
-export default function MarketRoute() {
+export default function FoodRoute() {
     const navigation = useNavigation();
 
     const contactCard = [
-        {
-            id: 1,
-            title: 'Supermercados Bicalho',
-            phone: '(33)99898-0556'
-
-        },
-        {
-            id: 2,
-            title: 'Supermercado K&K',
-            phone: '(33)99848-0356'
-        },
-        {
-            id: 3,
-            title: 'Mercadinho',
-            phone: '(33)99499-6556'
-        },
-        {
-            id: 4,
-            title: 'Mercadão',
-            phone: '(33)94499-6596'
-        },
-        {
-            id: 5,
-            title: 'Mercado da Dona Zilda',
-            phone: '(33)94499-6596'
-        },
-
-
-    ]
+            {
+                id: 1,
+                title: 'Dorinha Marmitex',
+                phone: '(33)99898-0556'
+            
+            },
+            {
+                id: 2,
+                title: 'Henriqqs Restaurante',
+                phone: '(33)99848-0356'
+            },
+            {
+                id: 3,
+                title: 'Restaurante Sabor do Campo',
+                phone: '(33)99499-6556'
+            },
+            {
+                id: 4,
+                title: 'Mercadão',
+                phone: '(33)94499-6596'
+            },
+            {
+                id: 5,
+                title: 'Mercado da Dona Zilda',
+                phone: '(33)94499-6596'
+            },
+];
 
     return (<ImageBackground
         style={styles.background}
@@ -50,29 +44,19 @@ export default function MarketRoute() {
         resizeMode="stretch"
     >
 
-            <HeaderSearch>
-                
-                <Image source={Logo} style={styles.logo} />
-            </HeaderSearch>
-
-        
-
+            <HeaderSearch/>
             <SafeAreaView>
-
-
                 <ScrollView >
-
                     <View style={styles.cardArea}>
-                        <Text style={styles.title}>MERCADOS</Text>
+                        <Text style={styles.title}>Restaurantes</Text>
                         {contactCard.map((item) => {
                             return (
-                                <ContactCard item={item} />
+                                <ContactCard item={item} /> 
                             )
                         })}
                     </View>
                 </ScrollView>
             </SafeAreaView>
-        
     </ImageBackground>
     )
 }

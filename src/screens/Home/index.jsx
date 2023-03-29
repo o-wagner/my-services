@@ -1,8 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground , View, SafeAreaView, ScrollView} from 'react-native';
 import Card from '../../components/Card';
-import Logo from '../../components/imgs/Vector.png';
-import {UserCircle, List} from 'phosphor-react-native';
+import Header from '../../components/Header';
 
 
 export default function Home() {
@@ -23,8 +22,8 @@ export default function Home() {
         },
         {
             id: 3,
-            title: 'Comida',
-            route: 'ComidaRoute',
+            title: 'Restaurantes',
+            route: 'FoodRoute',
             icon: 'ForkKnife',
         },
         {
@@ -60,18 +59,7 @@ export default function Home() {
                 resizeMode="stretch"
             >
             
-  
-            <View style={styles.header}>
-            <View style={{justifyContent:'center', alignItems: 'center'}}>
-                    <Image source={Logo} resizeMode="contain" style={styles.logo} />
-                </View>
-                <TouchableOpacity style={styles.user} onPress={() => navigation.navigate()}>
-                    <UserCircle size={38} color='#ffffff'/>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('')}>
-                    <List size={40} color='#ffffff'/>
-                </TouchableOpacity>
-            </View>
+                <Header/>
                 
   
             <SafeAreaView>
@@ -110,7 +98,7 @@ const styles = StyleSheet.create({
     header:{
         paddingTop: 60,
         paddingBottom: 18,
-        backgroundColor:'#2d0b4d',
+        // backgroundColor:'#2d0b4d',
         width: '100%',
         alignItems: 'center',
         flexDirection: 'row',

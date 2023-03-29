@@ -4,6 +4,7 @@ import SignIn from "../screens/SignIn";
 import Home from "../screens/Home";
 import MarketRoute from "../screens/MarketRoute";
 import PhoneRoute from "../screens/PhoneRoute";
+import FoodRoute from "../screens/FoodRoute";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export default function AppRoutes() {
             <Screen name="Home" component={Home}/>
             <Screen name="MarketRoute" component={MarketRoute}/>
             <Screen name="PhoneRoute" component={PhoneRoute}/>
+            <Screen name="FoodRoute" component={FoodRoute}/>
         </Navigator>
     )
 
