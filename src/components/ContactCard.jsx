@@ -1,36 +1,51 @@
-import React from "react";
+import React , { useState } from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
 import { Heart } from 'phosphor-react-native'
 
-export default function ContactCard({item}){
-    return(
-        <TouchableOpacity key={item.id} style={styles.contact}>
+// export default function ContactCard({item, searchText}){
+export default function ContactCard(props){
+
+    const [favorite, setFavorite] = useState(props.item.favorite);
+    const changeFavorite = () => {
+        setFavorite(!favorite)
+        props.item.favorite = !favorite
+    }
+
+
+    return( <View>
+       
+            <TouchableOpacity key={props.item.id} style={styles.contact}>
             <View style={styles.nome}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-            <TouchableOpacity>
-                <Heart style={{marginLeft: 10}} size={18} />
+                <Text style={styles.cardTitle}>{props.item.title}</Text>
+                <Text style={styles.cardPhone}>{props.item.phone}</Text>
+            </View>
+
+            <View style={{flex:1}}>
+            <TouchableOpacity style={{alignSelf: "flex-end" }} onPress={()=>setFavorite(!favorite)}>
+                <Heart color={favorite?'purple':''} size={22} weight={favorite?'fill':'duotone'}/>
             </TouchableOpacity>
             </View>
-            
-            <Text style={styles.cardPhone}>{item.phone}</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
+        
+        </View>
 
     );
 }
 
 const styles = StyleSheet.create({
     contact:{
-        backgroundColor: '#dddddd',
+        backgroundColor: '#dadadabe',
         height: 140,
         width: 350,
         borderRadius: 15,
         textAlign: 'center',
-        margin: 12,
+        margin: 8,
         padding: 20,
         shadowColor: 'black',
         shadowOffset: {width: 3, height: 8},
         shadowOpacity: 0.3,
         shadowRadius: 8,
+        flexDirection: 'row'
 
     },
     cardTitle: {
@@ -43,13 +58,14 @@ const styles = StyleSheet.create({
     }, 
     cardPhone: {
         color: "#000000",
-        fontSize: 18,
+        fontSize: 20,
         textTransform: 'uppercase',
-        alignContent:'right'
+        alignContent:'right',
+        marginTop: 6
     },
     nome:{
-    flexDirection:'row',
-    alignItems: 'center'
+    width: '70%',
+    alignItems: 'left'
 
     }
 

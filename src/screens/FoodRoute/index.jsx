@@ -1,39 +1,53 @@
-import { useNavigation, useState } from '@react-navigation/native';
+import { useState } from 'react'
+import { useNavigation} from '@react-navigation/native';
 import { View, Text, StyleSheet, ImageBackground, SafeAreaView, ScrollView} from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
 
 export default function FoodRoute() {
     const navigation = useNavigation();
+    const [searchText, setSearchText] = useState('');
 
     const contactCard = [
             {
                 id: 1,
                 title: 'Dorinha Marmitex',
-                phone: '(33)99898-0556'
+                phone: '(33)99898-0556',
+                favorite: false,
+                
             
             },
             {
                 id: 2,
                 title: 'Henriqqs Restaurante',
-                phone: '(33)99848-0356'
+                phone: '(33)99848-0356',
+                favorite: false,
             },
             {
                 id: 3,
                 title: 'Restaurante Sabor do Campo',
-                phone: '(33)99499-6556'
+                phone: '(33)99499-6556',
+                favorite: false,
             },
             {
                 id: 4,
                 title: 'Mercadão',
-                phone: '(33)94499-6596'
+                phone: '(33)94499-6596',
+                favorite: false,
             },
             {
                 id: 5,
                 title: 'Mercado da Dona Zilda',
-                phone: '(33)94499-6596'
+                phone: '(33)94499-6596',
+                favorite: false,
             },
 ];
+
+const ContactFilter = contactCard.filter(contact => {
+    return contact.title.toLowerCase().includes(searchText.toLowerCase());
+  });
+
+console.log(searchText);
 
     return (<ImageBackground
         style={styles.background}
@@ -44,14 +58,14 @@ export default function FoodRoute() {
         resizeMode="stretch"
     >
 
-            <HeaderSearch/>
+            <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
             <SafeAreaView>
                 <ScrollView >
                     <View style={styles.cardArea}>
                         <Text style={styles.title}>Restaurantes</Text>
-                        {contactCard.map((item) => {
+                        {ContactFilter.map((item) => {
                             return (
-                                <ContactCard item={item} /> 
+                                <ContactCard item={item} searchText={searchText} /> 
                             )
                         })}
                     </View>

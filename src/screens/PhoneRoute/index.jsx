@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import {useState} from 'react'
 import {
     View, Image,
     Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ScrollView, TextInput
@@ -9,35 +10,44 @@ import Logo from '../../components/imgs/Vector.png';
 
 export default function PhoneRoute() {
     const navigation = useNavigation();
-
+    const [searchText, setSearchText] = useState('')
     const contactCard = [
         {
             id: 1,
             title: 'Prefeitura',
-            phone: '(33)99898-0556'
+            phone: '(33)99898-0556',
+            favorite: false,
 
         },
         {
             id: 2,
             title: 'Caixa Econômica',
-            phone: '(33)99848-0356'
+            phone: '(33)99848-0356',
+            favorite: false,
         },
         {
             id: 3,
             title: 'Hospital',
-            phone: '(33)99499-6556'
+            phone: '(33)99499-6556',
+            favorite: false,
         },
         {
             id: 4,
             title: 'Biblioteca Municipal',
-            phone: '(33)94499-6596'
+            phone: '(33)94499-6596',
+            favorite: false,
         },
         {
             id: 5,
             title: 'Caps',
-            phone: '(33)94499-6596'
+            phone: '(33)94499-6596',
+            favorite: false,
         },
     ]
+
+    const ContactFilter = contactCard.filter(contact => {
+        return contact.title.toLowerCase().includes(searchText.toLowerCase());
+      });
 
     return (<ImageBackground
         style={styles.background}
@@ -47,14 +57,13 @@ export default function PhoneRoute() {
         }}
         resizeMode="stretch"
     >
-        <HeaderSearch>
-            <Image source={Logo} style={styles.logo} />
-        </HeaderSearch>
+        <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
+ 
         <SafeAreaView>
             <ScrollView >
                 <View style={styles.cardArea}>
                     <Text style={styles.title}>Serviços Locais</Text>
-                    {contactCard.map((item) => {
+                    {ContactFilter.map((item) => {
                         return (
                             <ContactCard item={item} />
                         )

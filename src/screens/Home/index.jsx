@@ -12,40 +12,46 @@ export default function Home() {
             id: 1,
             title: 'Mercados',
             route: 'MarketRoute',
-            icon: 'ShoppingCart'
+            icon: 'ShoppingCart',
+            
         },
         {
             id: 2,
             title: 'Serviços Locais',
             route: 'PhoneRoute',
-            icon: 'Phone'
+            icon: 'Phone',
+            
+            
         },
         {
             id: 3,
             title: 'Restaurantes',
             route: 'FoodRoute',
             icon: 'ForkKnife',
+            
         },
         {
             id: 4,
             title: 'Gás & Água',
             route: 'WaterRoute',
-            icon: 'Drop'
+            icon: 'Drop',
+            
+            
 
         },
         {
             id: 5,
             title: 'Emergência',
             route: 'EmergecyRoute',
-            icon: 'FirstAid'
-
+            icon: 'FirstAid',
+            
         },
         {
             id: 6,
             title: 'Mais',
             route: 'MaisRoute',
-            icon: 'Plus'
-
+            icon: 'Plus',
+            
         }
     ]
 

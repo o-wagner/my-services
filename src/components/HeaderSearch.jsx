@@ -4,12 +4,12 @@ import { TouchableOpacity, TextInput, Image, StyleSheet, View } from "react-nati
 import Logo from './imgs/Vector.png';
 import {UserCircle, House, MagnifyingGlass} from 'phosphor-react-native';
 
-export default function HeaderSearch(){
+
+export default function HeaderSearch(props){
 
     const navigation = useNavigation();
-    const [searchText, setSearchText] = useState('');
-    // console.log(searchText);
     return(
+
     <View style={styles.header}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Image source={Logo} resizeMode="contain" style={styles.logo} />
@@ -19,8 +19,9 @@ export default function HeaderSearch(){
                 <View style={styles.searchArea}>
                     <TextInput style={styles.searchInput} 
                     placeholder="Pesquise aqui"
-                    value={searchText}
-                    onChangeText={(text) => setSearchText(text)}/>  
+                    value={props.searchText}
+                    onChangeText={(text) => props.setSearchText(text)}
+                    />  
                         <MagnifyingGlass size={18} style={styles.searchIcon} color={'#2a0441'} />
                 </View>
                 <View style={styles.headerIcons}>
