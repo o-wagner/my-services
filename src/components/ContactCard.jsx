@@ -60,9 +60,9 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: 20,
         textTransform: 'uppercase',
-        alignContent:'right',
         marginTop: 6
     },
+    
     nome:{
     width: '70%',
     alignItems: 'left'

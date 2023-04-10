@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity, TextInput, Image, StyleSheet, View } from "react-native";
+import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
 import {UserCircle, List} from 'phosphor-react-native';
-import SignIn from "../screens/SignIn";
 
 export default function Header(){
     const navigation = useNavigation();

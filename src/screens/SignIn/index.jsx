@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginTop: 10,
         fontWeight: 'bold',
-        fontFamily: 'Helvetica',
         textTransform: 'uppercase',
         // marginBottom: 10,
     },
@@ -177,7 +176,6 @@ const styles = StyleSheet.create({
         top: 13,
         left: 1,
         fontWeight: 'bold',
-        fontFamily: 'Helvetica',
         textTransform: 'uppercase',
     },
     logo:{

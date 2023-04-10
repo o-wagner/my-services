@@ -61,8 +61,6 @@ export default function MarketRoute() {
         resizeMode="stretch"
     >
 
-        
-
             <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
 
             <SafeAreaView>
