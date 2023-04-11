@@ -7,6 +7,7 @@ import {
     Alert, TouchableWithoutFeedback, Keyboard, Image, Header
 } from 'react-native';
 import Button from '../../components/Button';
+import { Eye, EyeClosed } from 'phosphor-react-native';
 
 export default function SignIn() {
     const navigation = useNavigation();
@@ -15,6 +16,7 @@ export default function SignIn() {
     const [step, setStep] = useState(0);
     const [name, setName] = useState('');
     const [rptpassword, setRptPassword] = useState('');
+    const [passwordReveal, setPasswordReveal] = useState(true);
 
     function changeForm() {
         if (step === 0) {
@@ -69,7 +71,7 @@ export default function SignIn() {
                     
 
                 {step === 0 ? (
-                    <KeyboardAvoidingView style={styles.form} behavior="padding">
+                    <KeyboardAvoidingView style={styles.form} behavior="">
                         <Text style={styles.label}>E-mail</Text>
                         <TextInput
                             style={styles.input}
@@ -84,10 +86,17 @@ export default function SignIn() {
                         <TextInput
                             style={styles.input}
                             placeholder="Digite sua senha"
-                            secureTextEntry={true}
+                            secureTextEntry={passwordReveal}
                             value={password}
                             onChangeText={setPassword}
                         />
+                        <TouchableOpacity onPress={() => setPasswordReveal(!passwordReveal)}>
+                            { passwordReveal ?
+                                <EyeClosed  style={styles.eyeIcon} color='#353535' size={25}/>
+                                :
+                                <Eye style={styles.eyeIcon} color='#353535' size={25} />
+                            }
+                        </TouchableOpacity>
 
                         <Button label="Entrar" onPress={handleSubmit}/>
 
@@ -125,6 +134,14 @@ export default function SignIn() {
                             value={password}
                             onChangeText={setPassword}
                         />
+                       <TouchableOpacity onPress={() => setPasswordReveal(!passwordReveal)}>
+                            { passwordReveal ?
+                                <EyeClosed  style={styles.eyeIcon} color='#353535' size={25}/>
+                                :
+                                <Eye style={styles.eyeIcon} color='#353535' size={25} />
+                            }
+                        </TouchableOpacity>
+
                         <Text style={styles.label}>Repita sua senha</Text>
                         <TextInput
                             style={styles.input}
@@ -133,6 +150,13 @@ export default function SignIn() {
                             value={rptpassword}
                             onChangeText={setRptPassword}
                         />
+                       <TouchableOpacity onPress={() => setPasswordReveal(!passwordReveal)}>
+                            { passwordReveal ?
+                                <EyeClosed  style={styles.eyeIcon} color='#353535' size={25}/>
+                                :
+                                <Eye style={styles.eyeIcon} color='#353535' size={25} />
+                            }
+                        </TouchableOpacity>
 
                         <Button label="Criar Conta" onPress={handleSubmit}/>
 
@@ -205,6 +229,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginBottom: 9,
     },
+    eyeIcon:{
+        position:'absolute',
+        bottom: 16,
+        right: 15,
+    }
     
 
 });

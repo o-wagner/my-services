@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground , View, SafeAreaView, ScrollView} from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground, View, SafeAreaView, ScrollView, } from 'react-native';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 
@@ -9,81 +9,70 @@ export default function Home() {
 
     const pages = [
         {
-            id: 1,
+            key: 1,
             title: 'Mercados',
             route: 'MarketRoute',
             icon: 'ShoppingCart',
-            
         },
         {
-            id: 2,
+            key: 2,
             title: 'Serviços Locais',
             route: 'PhoneRoute',
             icon: 'Phone',
-            
-            
-        },
-        {
-            id: 3,
-            title: 'Restaurantes',
-            route: 'FoodRoute',
-            icon: 'ForkKnife',
-            
-        },
-        {
-            id: 4,
-            title: 'Gás & Água',
-            route: 'WaterRoute',
-            icon: 'Drop',
-            
-            
 
         },
         {
-            id: 5,
+            key: 3,
+            title: 'Restaurantes',
+            route: 'FoodRoute',
+            icon: 'ForkKnife',
+        },
+        {
+            key: 4,
+            title: 'Gás & Água',
+            route: 'WaterRoute',
+            icon: 'Drop',
+        },
+        {
+            key: 5,
             title: 'Emergência',
             route: 'EmergecyRoute',
             icon: 'FirstAid',
-            
         },
         {
-            id: 6,
+            key: 6,
             title: 'Mais',
             route: 'MaisRoute',
             icon: 'Plus',
-            
         }
     ]
 
     return (
         <ImageBackground
-                style={styles.background}
-                source={{
-                    uri:
-                        'https://png.pngtree.com/thumb_back/fh260/background/20210722/pngtree-dark-purple-gradient-wallpaper-background-image_750294.jpg',
-                }}
-                resizeMode="stretch"
-            >
-            
-                <Header/>
-                
-  
-            <SafeAreaView>
-            <ScrollView>
-             
-            
-            <View style={styles.cardArea}>
-                {pages.map((item) => {
-                    return (
-                        <Card item={item} onPress={() => navigation.navigate(item.route)} />
-                    )
-                })}
-            </View>
-            </ScrollView>
-            </SafeAreaView>
-            </ImageBackground>
+            style={styles.background}
+            source={{
+                uri:
+                    'https://png.pngtree.com/thumb_back/fh260/background/20210722/pngtree-dark-purple-gradient-wallpaper-background-image_750294.jpg',
+            }}
+            resizeMode="stretch"
+        >
 
-        
+            <Header />
+            <SafeAreaView style={{ flex: 1 }}>
+                
+                <ScrollView style={{ flex: 1 }}>
+                    <View style={styles.cardArea}>
+                        {pages.map((item) => {
+                            return (
+                                <Card key={item.key} item={item} onPress={() => navigation.navigate(item.route)} />
+                            )
+                        })}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        </ImageBackground>
+
+
     )
 }
 
@@ -91,17 +80,17 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
-    user:{
+    user: {
         marginTop: 26,
         marginLeft: 35,
     },
-    menu:{
+    menu: {
         marginTop: 26,
         marginLeft: 8,
     },
 
 
-    header:{
+    header: {
         paddingTop: 60,
         paddingBottom: 18,
         // backgroundColor:'#2d0b4d',
@@ -120,11 +109,11 @@ const styles = StyleSheet.create({
     },
 
     cardArea: {
-        justifyContent:'space-evenly',
+        justifyContent: 'space-evenly',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        margin: 18,
-        padding: 10,
+        margin: 10,
+        padding: 0,
 
     },
 

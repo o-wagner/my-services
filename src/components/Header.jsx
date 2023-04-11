@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, TextInput, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
 import {UserCircle, List} from 'phosphor-react-native';
-import SignIn from "../screens/SignIn";
+
 
 export default function Header(){
     const navigation = useNavigation();
@@ -13,7 +13,7 @@ export default function Header(){
                 <Image source={Logo} resizeMode="contain" style={styles.logo} />
 
                 <View style={styles.headerIcons}>
-                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate()}>
+                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
                         <UserCircle size={40} color='#ffffff'/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>

@@ -50,8 +50,6 @@ export default function MarketRoute() {
         return contact.title.toLowerCase().includes(searchText.toLowerCase());
       });
 
-      console.log(ContactFilter);
-
     return (<ImageBackground
         style={styles.background}
         source={{
@@ -74,7 +72,7 @@ export default function MarketRoute() {
 
                        ( ContactFilter.map((item) => {
                             return (
-                                <ContactCard item={item} searchText={searchText}/>
+                                <ContactCard key={item.id} item={item} searchText={searchText}/>
                             )
                         }
                         )):
@@ -99,8 +97,6 @@ const styles = StyleSheet.create({
     
 
     market: {
-        // marginBottom:25,
-        marginRight: 45,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#fdfdfd',
-        fontSize: 25,
+        fontSize: 26,
         fontWeight: 'bold',
         textTransform: 'uppercase',
         marginBottom: 20,

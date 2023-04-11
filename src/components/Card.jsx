@@ -1,16 +1,20 @@
-import { TouchableOpacity, Text, StyleSheet } from 'react-native'
-import { Plus, ShoppingCart, ForkKnife, Phone , Drop , FirstAid } from 'phosphor-react-native';
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native'
+import { Plus, ShoppingCart, ForkKnife, Phone , Drop , FirstAid, CaretRight } from 'phosphor-react-native';
 
 export default function Card({ item, onPress}){
     return(
-        <TouchableOpacity key={item.id} style={styles.card} onPress={onPress}>
-            {item.icon === 'ShoppingCart' && <ShoppingCart size={55} color='#d8d8d8' />}
-            {item.icon === 'Phone' && <Phone size={55} color='#d8d8d8' />}
-            {item.icon === 'ForkKnife' && <ForkKnife size={55} color='#d8d8d8' />}
-            {item.icon === 'Drop' && <Drop size={55} color='#d8d8d8' />}
-            {item.icon === 'FirstAid' && <FirstAid size={55} color='#d8d8d8' />}
-            {item.icon === 'Plus' && <Plus size={55} color='#d8d8d8' />}
+        <TouchableOpacity key={item.key} style={styles.card} onPress={onPress}>
+            <View style={styles.iconTitle}>
+            {item.icon === 'ShoppingCart' && <ShoppingCart size={35} color='#d8d8d8' />}
+            {item.icon === 'Phone' && <Phone size={35} color='#d8d8d8' />}
+            {item.icon === 'ForkKnife' && <ForkKnife size={35} color='#d8d8d8' />}
+            {item.icon === 'Drop' && <Drop size={35} color='#d8d8d8' />}
+            {item.icon === 'FirstAid' && <FirstAid size={35} color='#d8d8d8' />}
+            {item.icon === 'Plus' && <Plus size={35} color='#d8d8d8' />}
             <Text style={styles.cardTitle}>{item.title}</Text>
+            </View>
+            
+            <CaretRight size={30} color='#d8d8d8'/>
         </TouchableOpacity>
         
     )
@@ -19,25 +23,35 @@ export default function Card({ item, onPress}){
 const styles = StyleSheet.create({
     card: {
         backgroundColor: '#0000003b' ,
-        width: 135,
-        height: 135,
+        width: "100%",
+        height: 110,
         borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
-        margin: 10,
+        flexDirection: 'row',
+        margin: 6,
         shadowColor: 'black',
         shadowOffset: {width: 8, height: 10},
+        shadowColor: 'rgba(0,0,0, 0.1)',
         shadowOpacity: 0.6,
         shadowRadius: 7,
+        justifyContent: 'space-between',
+        paddingHorizontal: 35,
+
     },
+    iconTitle:{
+        flexDirection: 'row',
+        alignItems: 'center',
+ 
+    },
+
     cardTitle: {
         color: '#d8d8d8',
         fontSize: 17,
         fontWeight: '600',
         textTransform: 'uppercase',
-        marginTop: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginLeft: 23,
     }
 
     }

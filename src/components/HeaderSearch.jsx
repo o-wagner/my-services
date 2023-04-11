@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, TextInput, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
@@ -25,7 +25,7 @@ export default function HeaderSearch(props){
                         <MagnifyingGlass size={18} style={styles.searchIcon} color={'#2a0441'} />
                 </View>
                 <View style={styles.headerIcons}>
-                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate()}>
+                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
                         <UserCircle size={40} color='#ffffff'/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.house} onPress={() => navigation.navigate('Home')}>

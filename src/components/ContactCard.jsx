@@ -22,7 +22,7 @@ export default function ContactCard(props){
 
             <View style={{flex:1}}>
             <TouchableOpacity style={{alignSelf: "flex-end" }} onPress={()=>setFavorite(!favorite)}>
-                <Heart color={favorite?'purple':''} size={22} weight={favorite?'fill':'duotone'}/>
+                <Heart color={favorite?'#3b065a':''} size={22} weight={favorite?'fill':'duotone'}/>
             </TouchableOpacity>
             </View>
             </TouchableOpacity>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         margin: 8,
         padding: 20,
         shadowColor: 'black',
-        shadowOffset: {width: 3, height: 8},
+        // shadowOffset: {width: 3, height: 8},
         shadowOpacity: 0.3,
         shadowRadius: 8,
         flexDirection: 'row'
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
         color: "#000000",
         fontSize: 20,
         textTransform: 'uppercase',
-        alignContent:'right',
         marginTop: 6
     },
     nome:{

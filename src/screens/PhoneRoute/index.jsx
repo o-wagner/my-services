@@ -65,7 +65,7 @@ export default function PhoneRoute() {
                     <Text style={styles.title}>Serviços Locais</Text>
                     {ContactFilter.map((item) => {
                         return (
-                            <ContactCard item={item} />
+                            <ContactCard key={item.id} item={item} searchText={searchText}/>
                         )
                     })}
                 </View>
