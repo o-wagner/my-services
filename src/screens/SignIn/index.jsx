@@ -27,8 +27,13 @@ export default function SignIn() {
     }
 
     function handleSubmit() {
+        if(email === '' || password === '') {
+            Alert.alert("Por favor insira dados validos!");
+        }
+        else{
         console.log({ email, password });
         navigation.navigate('Home');
+        }
     }
 
     function validateForm() {
@@ -130,7 +135,7 @@ export default function SignIn() {
                         <TextInput
                             style={styles.input}
                             placeholder="Digite sua senha"
-                            secureTextEntry={true}
+                            secureTextEntry={passwordReveal}
                             value={password}
                             onChangeText={setPassword}
                         />
@@ -146,7 +151,7 @@ export default function SignIn() {
                         <TextInput
                             style={styles.input}
                             placeholder="Repita sua senha"
-                            secureTextEntry={true}
+                            secureTextEntry={passwordReveal}
                             value={rptpassword}
                             onChangeText={setRptPassword}
                         />
