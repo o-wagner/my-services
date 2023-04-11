@@ -1,9 +1,8 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
 import { Heart } from 'phosphor-react-native'
 
-// export default function ContactCard({item, searchText}){
-export default function ContactCard(props){
+export default function ContactCard(props) {
 
     const [favorite, setFavorite] = useState(props.item.favorite);
     const changeFavorite = () => {
@@ -12,28 +11,28 @@ export default function ContactCard(props){
     }
 
 
-    return( <View>
-       
-            <TouchableOpacity key={props.item.id} style={styles.contact}>
+    return (<View>
+
+        <TouchableOpacity key={props.item.id} style={styles.contact}>
             <View style={styles.nome}>
                 <Text style={styles.cardTitle}>{props.item.title}</Text>
                 <Text style={styles.cardPhone}>{props.item.phone}</Text>
             </View>
 
-            <View style={{flex:1}}>
-            <TouchableOpacity style={{alignSelf: "flex-end" }} onPress={()=>setFavorite(!favorite)}>
-                <Heart color={favorite?'#3b065a':''} size={22} weight={favorite?'fill':'duotone'}/>
-            </TouchableOpacity>
+            <View style={{ flex: 1 }}>
+                <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={() => setFavorite(!favorite)}>
+                    <Heart color={favorite ? '#3b065a' : ''} size={22} weight={favorite ? 'fill' : 'duotone'} />
+                </TouchableOpacity>
             </View>
-            </TouchableOpacity>
-        
-        </View>
+        </TouchableOpacity>
+
+    </View>
 
     );
 }
 
 const styles = StyleSheet.create({
-    contact:{
+    contact: {
         backgroundColor: '#dadadabe',
         height: 140,
         width: 350,
@@ -54,19 +53,19 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textTransform: 'uppercase',
 
-       
-    }, 
+
+    },
     cardPhone: {
         color: "#000000",
         fontSize: 20,
         textTransform: 'uppercase',
         marginTop: 6
     },
-    nome:{
-    width: '70%',
-    alignItems: 'left'
+    nome: {
+        width: '70%',
+        alignItems: 'left'
 
     }
 
-} 
+}
 )

@@ -1,26 +1,40 @@
 import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity, TextInput, Image, StyleSheet, View } from "react-native";
+import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
-import {UserCircle, List} from 'phosphor-react-native';
+import { UserCircle, List } from 'phosphor-react-native';
 
 
-export default function Header(){
+export default function Header(props) {
     const navigation = useNavigation();
+    const [userIcon, setUserIcon] = useState(props.userIcon);
 
-    return(
-    <View style={styles.header}>
-                <Image source={Logo} resizeMode="contain" style={styles.logo} />
+    console.log(props.setUserIcon);
+    return (
+        <View style={styles.header}>
+            <Image source={Logo} resizeMode="contain" style={styles.logo} />
 
-                <View style={styles.headerIcons}>
-                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
-                        <UserCircle size={40} color='#ffffff'/>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
-                        <List size={40} color='#ffffff'/>
-                    </TouchableOpacity>
-                </View>
-    </View>
+
+            <View>
+                {props.userIcon ?
+                    <View style={styles.headerIcons}>
+                        <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
+                            <UserCircle size={40} color='#ffffff' />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
+                            <List size={40} color='#ffffff' />
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={styles.headerIconsMenu}>
+                        <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
+                            <List size={40} color='#ffffff' />
+                        </TouchableOpacity>
+                    </View>
+
+                }
+            </View>
+        </View >
 
     );
 }
@@ -53,18 +67,28 @@ const styles = StyleSheet.create({
         marginLeft: '35%',
         marginTop: 15,
         // backgroundColor: 'red',
-        
+
     },
-    
-    headerIcons:{
+
+    headerIcons: {
         marginTop: 35,
         marginRight: 20,
-        flexDirection:'row',
+        flexDirection: 'row',
         // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
     },
+    headerIconsMenu:{
+        marginTop: 35,
+        marginRight: 10,
+        marginLeft: 8,
+        padding: 15,
+        flexDirection: 'row',
+        // backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 
 
-} 
+}
 )

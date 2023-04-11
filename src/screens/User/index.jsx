@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
     Text, StyleSheet, ImageBackground, SafeAreaView, View, TouchableOpacity
@@ -9,6 +10,7 @@ import Button from "../../components/Button";
 
 export default function User() {
     const navigation = useNavigation();
+    const [UserIcon, setUserIcon] = useState(false) ;
 
     return (<ImageBackground
         style={styles.background}
@@ -19,13 +21,13 @@ export default function User() {
         resizeMode="stretch"
     >
 
-        <Header />
+        <Header/>
 
         <SafeAreaView style={styles.page}>
            
                 <TouchableOpacity style={styles.userArea}>
                     <UserCircle color="white" size={140} />
-                <View style={styles.usernameArea} >
+                <View>
                     <Text style={styles.username}>@username</Text>
                 </View>
                 </TouchableOpacity>

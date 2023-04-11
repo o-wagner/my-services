@@ -2,11 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground, View, SafeAreaView, ScrollView, } from 'react-native';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
+import React, {useState} from 'react'
 
 
 export default function Home() {
     const navigation = useNavigation();
-
+    const [userIcon,setUserIcon] = useState(true);
     const pages = [
         {
             key: 1,
@@ -57,7 +58,7 @@ export default function Home() {
             resizeMode="stretch"
         >
 
-            <Header />
+            <Header setUserIcon={true} userIcon={userIcon} />
             <SafeAreaView style={{ flex: 1 }}>
                 
                 <ScrollView style={{ flex: 1 }}>

@@ -6,8 +6,8 @@ import {UserCircle, House, MagnifyingGlass} from 'phosphor-react-native';
 
 
 export default function HeaderSearch(props){
-
     const navigation = useNavigation();
+    
     return(
 
     <View style={styles.header}>
