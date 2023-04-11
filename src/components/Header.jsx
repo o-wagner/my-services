@@ -8,8 +8,7 @@ import { UserCircle, List } from 'phosphor-react-native';
 export default function Header(props) {
     const navigation = useNavigation();
     const [userIcon, setUserIcon] = useState(props.userIcon);
-
-    console.log(props.setUserIcon);
+    
     return (
         <View style={styles.header}>
             <Image source={Logo} resizeMode="contain" style={styles.logo} />

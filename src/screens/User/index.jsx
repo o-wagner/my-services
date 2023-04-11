@@ -37,9 +37,7 @@ export default function User() {
                     <Button style={styles.btnEdit} textStyle={styles.btnText} label="Favoritos" onPress={() => navigation.navigate('#')}/>
                 </View>
                 <Button style={styles.btnSair} textStyle={styles.btnText} label="Voltar" onPress={() => navigation.navigate('Home')}/>
-            
         </SafeAreaView>
-
     </ImageBackground>
     );
 }
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     username: {
         fontSize: 28,
         color: 'white',
-        fontFamily: 'Helvetica',
+        fontFamily: 'Roboto',
         fontWeight: 'bold',
     },
 
@@ -74,7 +72,6 @@ const styles = StyleSheet.create({
     },
     btnEdit: {
         width: '35%',
-        padding: 8,
         marginLeft: 13,
         marginTop: 30,
         borderRadius: 12,
@@ -86,7 +83,6 @@ const styles = StyleSheet.create({
     },
     btnSair: {
         width: '73%',
-        padding: 10,
         marginLeft: 10,
         borderRadius: 12,
         alignContent: "center",

@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import Button from '../../components/Button';
 import { Eye, EyeClosed } from 'phosphor-react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ForgotPassword from '../ForgotPassword';
 
 export default function SignIn() {
     const navigation = useNavigation();
@@ -59,17 +61,17 @@ export default function SignIn() {
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <ImageBackground
-                style={styles.container}
+                style={styles.background}
                 source={{
                     uri:
                         'https://png.pngtree.com/thumb_back/fh260/background/20210722/pngtree-dark-purple-gradient-wallpaper-background-image_750294.jpg',
                 }}
                 resizeMode="stretch"
             >
-
+                <SafeAreaView style={styles.container}>
                 
                     <View style={styles.header}>
-                    <Text style={styles.titlelogin}>{step === 0 ? 'Faça Login no' : 'Crie Sua Conta'}</Text>
+                        <Text style={step === 0 ? styles.titlelogin : styles.titleSignUp}>{step === 0 ? 'Faça Login no' : 'Crie Sua Conta'}</Text>
                         <Image source={Logo} style={styles.logo} resizeMode="stretch"></Image>
                         
                     </View>
@@ -105,11 +107,19 @@ export default function SignIn() {
 
                         <Button label="Entrar" onPress={handleSubmit}/>
 
+                        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                            <Text style={[styles.label, {
+                                marginTop: 25,
+                                textAlign: 'center',
+                            }]}>Esqueceu sua senha?</Text>
+                        </TouchableOpacity>
+
                         <TouchableOpacity onPress={changeForm}>
                             <Text style={[styles.label, {
+                                marginTop: 15,
                                 textAlign: 'center',
                                 textDecorationLine: 'underline',
-                            }]}>Não possuo uma conta</Text>
+                            }]}>Cadastre-se</Text>
                         </TouchableOpacity>
                     </KeyboardAvoidingView>
 
@@ -163,50 +173,65 @@ export default function SignIn() {
                             }
                         </TouchableOpacity>
 
-                        <Button label="Criar Conta" onPress={handleSubmit}/>
+                        <Button label="Criar Conta" onPress={validateForm}/>
 
                         <TouchableOpacity onPress={changeForm}>
                             <Text style={[styles.label, { textAlign: 'center' }]}>Ja possuo uma conta</Text>
                         </TouchableOpacity>
                     </KeyboardAvoidingView>
                 )}
-
+            </SafeAreaView>
             </ImageBackground>
         </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background:{
         flex: 1,
-        width: '100%',
         backgroundColor: '#43425D',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container: {
+        // flex: 1,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     header:{
-        height:'10%',
+        height:'15%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 5,
     },
     title: {
         color: '#fff',
         fontSize: 24,
         marginTop: 10,
         fontWeight: 'bold',
-        fontFamily: 'Helvetica',
+        fontFamily: 'Roboto',
         textTransform: 'uppercase',
         // marginBottom: 10,
     },
     titlelogin:{
         color: '#fff',
-        fontSize: 18,
+        fontSize: 17,
         position: 'absolute',
-        top: 13,
+        top: 3,
         left: 1,
         fontWeight: 'bold',
-        fontFamily: 'Helvetica',
+        fontFamily: 'Roboto',
+        textTransform: 'uppercase',
+    },
+    titleSignUp:{
+        color: '#fff',
+        fontSize: 16,
+        position: 'absolute',
+        top: 20,
+        left: 1,
+        fontWeight: 'bold',
+        fontFamily: 'Roboto',
         textTransform: 'uppercase',
     },
     logo:{
