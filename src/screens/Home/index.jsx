@@ -7,7 +7,7 @@ import React, {useState} from 'react'
 
 export default function Home() {
     const navigation = useNavigation();
-    const [userIcon,setUserIcon] = useState(true);
+    const [userIcon, setUserIcon] = useState(true);
     const pages = [
         {
             key: 1,
@@ -58,7 +58,7 @@ export default function Home() {
             resizeMode="stretch"
         >
 
-            <Header setUserIcon={true} userIcon={userIcon} />
+            <Header userIcon={userIcon} />
             <SafeAreaView style={{ flex: 1 }}>
                 
                 <ScrollView style={{ flex: 1 }}>

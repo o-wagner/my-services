@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { Heart } from 'phosphor-react-native'
 
 export default function ContactCard(props) {
@@ -9,23 +9,20 @@ export default function ContactCard(props) {
         setFavorite(!favorite)
         props.item.favorite = !favorite
     }
-
-
-    return (<View>
-
+    return (
+    <View>
         <TouchableOpacity key={props.item.id} style={styles.contact}>
-            <View style={styles.nome}>
+            <View style={styles.cardInfo}>
                 <Text style={styles.cardTitle}>{props.item.title}</Text>
                 <Text style={styles.cardPhone}>{props.item.phone}</Text>
             </View>
 
-            <View style={{ flex: 1 }}>
+            <View style={{position: 'absolute', right: 18, top:20}}>
                 <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={() => setFavorite(!favorite)}>
                     <Heart color={favorite ? '#3b065a' : ''} size={22} weight={favorite ? 'fill' : 'duotone'} />
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>
-
     </View>
 
     );
@@ -40,28 +37,23 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 8,
         padding: 20,
-        shadowColor: 'black',
-        // shadowOffset: {width: 3, height: 8},
-        shadowOpacity: 0.3,
         shadowRadius: 8,
-        flexDirection: 'row'
-
     },
     cardTitle: {
         color: "#000000",
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: '700',
         textTransform: 'uppercase',
-
-
+        textAlign: 'left'
     },
     cardPhone: {
         color: "#000000",
-        fontSize: 20,
+        fontSize: 18,
         textTransform: 'uppercase',
-        marginTop: 6
+        marginTop: 6,
+        textAlign: 'left'
     },
-    nome: {
+    cardInfo: {
         width: '70%',
         alignItems: 'left'
 

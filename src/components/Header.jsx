@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
-import { UserCircle, List } from 'phosphor-react-native';
+import { UserCircle, List, CaretLeft } from 'phosphor-react-native';
 
 
 export default function Header(props) {
@@ -11,12 +11,10 @@ export default function Header(props) {
     
     return (
         <View style={styles.header}>
-            <Image source={Logo} resizeMode="contain" style={styles.logo} />
-
-
             <View>
                 {props.userIcon ?
                     <View style={styles.headerIcons}>
+                        <Image source={Logo} resizeMode="contain" style={styles.logo} />
                         <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
                             <UserCircle size={40} color='#ffffff' />
                         </TouchableOpacity>
@@ -26,6 +24,10 @@ export default function Header(props) {
                     </View>
                     :
                     <View style={styles.headerIconsMenu}>
+                        <TouchableOpacity style={styles.arrow} onPress={() => navigation.navigate('Home')}>
+                            <CaretLeft size={30} color='#ffffff' />
+                        </TouchableOpacity>
+                        <Image source={Logo} resizeMode="contain" style={styles.logo} />
                         <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
                             <List size={40} color='#ffffff' />
                         </TouchableOpacity>
@@ -40,13 +42,14 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
     user: {
-        // marginTop: 26,
         marginRight: 6,
         marginLeft: 22,
     },
     menu: {
-        // marginTop: 26,
-        marginRight: 100,
+        marginRight: '5%',
+    },
+    arrow:{
+        marginLeft: '8%',
     },
     header: {
         paddingTop: '10%',
@@ -62,10 +65,9 @@ const styles = StyleSheet.create({
     logo: {
         width: 180,
         height: 90,
-        marginRight: '5%',
-        marginLeft: '35%',
-        marginTop: 15,
-        // backgroundColor: 'red',
+        marginRight: '12%',
+        marginBottom: '5%',
+        marginLeft: '15%',
 
     },
 
@@ -73,7 +75,6 @@ const styles = StyleSheet.create({
         marginTop: 35,
         marginRight: 20,
         flexDirection: 'row',
-        // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -83,7 +84,6 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         padding: 15,
         flexDirection: 'row',
-        // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
     }

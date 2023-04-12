@@ -29,13 +29,13 @@ export default function SignIn() {
     }
 
     function handleSubmit() {
-        if(email === '' || password === '') {
-            Alert.alert("Por favor insira dados validos!");
-        }
-        else{
+        // if(email === '' || password === '') {
+        //     Alert.alert("Por favor insira dados validos!");
+        // }
+        // else{
         console.log({ email, password });
         navigation.navigate('Home');
-        }
+        // }
     }
 
     function validateForm() {

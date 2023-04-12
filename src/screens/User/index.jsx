@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {
-    Text, StyleSheet, ImageBackground, SafeAreaView, View, TouchableOpacity
-
-} from 'react-native';
-import { UserCircle } from 'phosphor-react-native';
+import {Text, StyleSheet, ImageBackground, SafeAreaView, View, TouchableOpacity, ScrollView, Image} from 'react-native';
 import Header from "../../components/Header";
 import Button from "../../components/Button";
+import Avatar from "../../components/imgs/Avatar.jpg"
 
 export default function User() {
     const navigation = useNavigation();
-    const [UserIcon, setUserIcon] = useState(false) ;
 
     return (<ImageBackground
         style={styles.background}
@@ -20,24 +16,29 @@ export default function User() {
         }}
         resizeMode="stretch"
     >
-
-        <Header/>
-
-        <SafeAreaView style={styles.page}>
-           
-                <TouchableOpacity style={styles.userArea}>
-                    <UserCircle color="white" size={140} />
-                <View>
-                    <Text style={styles.username}>@username</Text>
-                </View>
+        <Header />
+        {/* <SafeAreaView style={styles.page}> */}
+        <ScrollView>
+            <View style={styles.imgArea}>
+                <TouchableOpacity>
+                    <Image 
+                    source={Avatar}
+                    style={{borderRadius: 100, width: 140, height: 140, marginTop: 10}}
+                    ></Image>
                 </TouchableOpacity>
-            
-                <View style={styles.btnArea}>
-                    <Button style={styles.btnEdit} textStyle={styles.btnText} label="Editar Perfil" onPress={() => navigation.navigate('#')}/>
-                    <Button style={styles.btnEdit} textStyle={styles.btnText} label="Favoritos" onPress={() => navigation.navigate('#')}/>
-                </View>
-                <Button style={styles.btnSair} textStyle={styles.btnText} label="Voltar" onPress={() => navigation.navigate('Home')}/>
-        </SafeAreaView>
+            </View>
+            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
+                <Text style={styles.username}>@smoke.ogg</Text>
+                <Text style={{fontSize: 20, color: '#dbdbdb', }}>23, Smoke</Text>
+            </View>
+
+            <View style={styles.btnArea}>
+                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Editar Perfil" onPress={() => navigation.navigate('#')} />
+                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Favoritos" onPress={() => navigation.navigate('#')} />
+                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Logout" onPress={() => navigation.navigate('SignIn')} />
+            </View>
+        </ScrollView>
+        {/* </SafeAreaView> */}
     </ImageBackground>
     );
 }
@@ -46,39 +47,51 @@ const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'white',
+        flex: 1,
+        width: '100%',
 
+    },
+    userAvatar: {
+        marginBottom: 10,
     },
     background: {
         flex: 1
     },
     username: {
-        fontSize: 28,
+        fontSize: 25,
         color: 'white',
         fontFamily: 'Roboto',
         fontWeight: 'bold',
+        marginTop: 5,
+        padding: 5
     },
 
-    userArea: {
+    imgArea: {
+        marginTop: 10,
         alignItems: 'center',
         alignContent: 'center',
-        marginTop: 50,
+        width: '100%',
+        height: 170,
+        padding: 20,
+
     },
 
     btnArea: {
-        flexDirection: 'row',
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-
     },
     btnEdit: {
-        width: '35%',
-        marginLeft: 13,
-        marginTop: 30,
+        backgroundColor: '#00000049',
+        width: '85%',
+        height: '20%',
         borderRadius: 12,
         alignContent: "center",
         alignItems: "center",
     },
-    btnText:{
+    btnText: {
         fontSize: 20,
     },
     btnSair: {

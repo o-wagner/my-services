@@ -25,11 +25,11 @@ export default function HeaderSearch(props){
                         <MagnifyingGlass size={18} style={styles.searchIcon} color={'#2a0441'} />
                 </View>
                 <View style={styles.headerIcons}>
-                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
-                        <UserCircle size={40} color='#ffffff'/>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.house} onPress={() => navigation.navigate('Home')}>
                         <House size={40} color='#ffffff'/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
+                        <UserCircle size={40} color='#ffffff'/>
                     </TouchableOpacity>
                 </View>
         </View>
@@ -47,12 +47,10 @@ const styles = StyleSheet.create({
     },
 
     user: {
-        // marginTop: 26,
-        marginLeft: 35,
+        marginLeft: 6,
     },
     house: {
-        // marginTop: 26,
-        marginLeft: 6,
+        marginLeft: 30,
     },
     header: {
         paddingTop: '10%',
@@ -73,17 +71,17 @@ const styles = StyleSheet.create({
     },
     searchIcon:{
         position: 'absolute',
-        left: 31,
+        left: 40,
         top: 6,
     },
   
     searchInput:{
         backgroundColor: '#dddddd',
-        width:'100%',
+        width:'90%',
         height:30,
         borderRadius: 8,
-        marginLeft: '10%',
-        paddingLeft: '13%',
+        marginLeft: '13%',
+        paddingLeft: '15%',
     },
 
         searchArea: {

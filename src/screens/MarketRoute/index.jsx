@@ -10,7 +10,7 @@ import HeaderSearch from '../../components/HeaderSearch';
 export default function MarketRoute() {
     const navigation = useNavigation();
     const [searchText, setSearchText] = useState('');
-    
+
     const contactCard = [
         {
             id: 1,
@@ -44,11 +44,11 @@ export default function MarketRoute() {
             favorite: false,
         },
     ]
-    
+
 
     const ContactFilter = contactCard.filter(contact => {
         return contact.title.toLowerCase().includes(searchText.toLowerCase());
-      });
+    });
 
     return (<ImageBackground
         style={styles.background}
@@ -58,33 +58,23 @@ export default function MarketRoute() {
         }}
         resizeMode="stretch"
     >
-
-        
-
-            <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
-
-            <SafeAreaView>
-                <ScrollView >
-                    <View style={styles.cardArea}>
-                        <Text style={styles.title}>MERCADOS</Text>
-                        
-                        {ContactFilter.length > 0 ? 
-
-                       ( ContactFilter.map((item) => {
+        <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
+            <ScrollView >
+                <View style={styles.cardArea}>
+                    <Text style={styles.title}>MERCADOS</Text>
+                    {ContactFilter.length > 0 ?
+                        (ContactFilter.map((item) => {
                             return (
-                                <ContactCard key={item.id} item={item} searchText={searchText}/>
+                                <ContactCard key={item.id} item={item} searchText={searchText} />
                             )
                         }
-                        )):
-                        <View> 
+                        )) :
+                        <View>
                             <Text style={styles.title}>Não Achou</Text>
                         </View>
-                    
                     }
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        
+                </View>
+            </ScrollView>
     </ImageBackground>
     )
 }
@@ -94,22 +84,17 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
-    
-
     market: {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
-
     },
     title: {
         color: '#fdfdfd',
-        fontSize: 26,
+        fontSize: 25,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        marginBottom: 20,
-        marginRight: 10,
-        marginLeft: 25
+        margin: 10,
     },
 
     button: {
@@ -126,7 +111,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: '800',
-
     },
     cardArea: {
         justifyContent: 'space-between',
@@ -134,19 +118,9 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 200,
-        marginTop:20
+        marginBottom: 20,
+        marginTop: 20
     },
-    inputSearch: {
-        width: '100%',
-        backgroundColor: 'rgba(255,255,255)',
-        borderwidth: 1,
-        borderColor: 'white'
 
-    },
-    searchArea: {
-        width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 1)'
-    },
 
 })

@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import {useState} from 'react'
+import { useState } from 'react'
 import {
     View, Image,
     Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ScrollView, TextInput
@@ -47,7 +47,7 @@ export default function PhoneRoute() {
 
     const ContactFilter = contactCard.filter(contact => {
         return contact.title.toLowerCase().includes(searchText.toLowerCase());
-      });
+    });
 
     return (<ImageBackground
         style={styles.background}
@@ -58,19 +58,22 @@ export default function PhoneRoute() {
         resizeMode="stretch"
     >
         <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
- 
-        <SafeAreaView>
             <ScrollView >
                 <View style={styles.cardArea}>
                     <Text style={styles.title}>Serviços Locais</Text>
-                    {ContactFilter.map((item) => {
-                        return (
-                            <ContactCard key={item.id} item={item} searchText={searchText}/>
-                        )
-                    })}
+                    {ContactFilter.length > 0 ?
+                        (ContactFilter.map((item) => {
+                            return (
+                                <ContactCard key={item.id} item={item} searchText={searchText} />
+                            )
+                        }
+                        )) :
+                        <View>
+                            <Text style={styles.title}>Não Achou</Text>
+                        </View>
+                    }
                 </View>
             </ScrollView>
-        </SafeAreaView>
 
     </ImageBackground>
     )
@@ -81,26 +84,19 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
-
-
     market: {
-        // marginBottom:25,
-        marginRight: 45,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
-
     },
     title: {
         color: '#fdfdfd',
         fontSize: 25,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        marginBottom: 20,
-        marginRight: 10,
-        marginLeft: 25
-    },
+        marginBottom: 10,
 
+    },
     button: {
         borderRadius: 7,
         backgroundColor: 'grey',
@@ -123,19 +119,9 @@ const styles = StyleSheet.create({
         flexWrap: 'nowrap',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 200,
+        marginBottom: 20,
         marginTop: 20
     },
-    inputSearch: {
-        width: '100%',
-        backgroundColor: 'rgba(255,255,255)',
-        borderwidth: 1,
-        borderColor: 'white'
 
-    },
-    searchArea: {
-        width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 1)'
-    },
 
 })
