@@ -8,7 +8,6 @@ import FoodRoute from "../screens/FoodRoute";
 import User from '../screens/User';
 import ForgotPassword from '../screens/ForgotPassword';
 
-
 const { Navigator, Screen } = createNativeStackNavigator();
 
 

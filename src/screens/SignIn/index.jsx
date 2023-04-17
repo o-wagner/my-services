@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import Logo from '../../components/imgs/Vector.png';
 import {
     StyleSheet, Text, View, TextInput,
     ImageBackground, TouchableOpacity, KeyboardAvoidingView,
-    Alert, TouchableWithoutFeedback, Keyboard, Image, Header
+    Alert, TouchableWithoutFeedback, Keyboard, Image,
 } from 'react-native';
 import Button from '../../components/Button';
 import { Eye, EyeClosed } from 'phosphor-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ForgotPassword from '../ForgotPassword';
+// import Firebase from '../../config';
 
 export default function SignIn() {
     const navigation = useNavigation();
@@ -19,6 +19,18 @@ export default function SignIn() {
     const [name, setName] = useState('');
     const [rptpassword, setRptPassword] = useState('');
     const [passwordReveal, setPasswordReveal] = useState(true);
+
+    // useEffect(() => {
+    //     Firebase.firestore()
+    //     .collection("teste")
+    //     .get()
+    //     .then((querySnapshot) => {
+    //         querySnapshot.forEach((doc) => {
+    //             setDados([doc.data()]);
+    //             console.log(doc.data());
+    //         });
+    //     });
+    // }, []);
 
     function changeForm() {
         if (step === 0) {
@@ -32,10 +44,14 @@ export default function SignIn() {
         // if(email === '' || password === '') {
         //     Alert.alert("Por favor insira dados validos!");
         // }
-        // else{
+        // else{ }
+        
         console.log({ email, password });
-        navigation.navigate('Home');
-        // }
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}], 
+        });
+        
     }
 
     function validateForm() {

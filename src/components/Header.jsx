@@ -8,7 +8,7 @@ import { UserCircle, List, CaretLeft } from 'phosphor-react-native';
 export default function Header(props) {
     const navigation = useNavigation();
     const [userIcon, setUserIcon] = useState(props.userIcon);
-    
+
     return (
         <View style={styles.header}>
             <View>

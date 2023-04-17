@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
+import Firebase from '../../config';
+
 
 export default function MarketRoute() {
     const navigation = useNavigation();

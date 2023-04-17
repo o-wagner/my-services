@@ -1,47 +1,49 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground, View, SafeAreaView, ScrollView, } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground, View, SafeAreaView, ScrollView, Platform } from 'react-native';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
-import React, {useState} from 'react'
-
+import React, {useState, useEffect} from 'react'
 
 export default function Home() {
     const navigation = useNavigation();
     const [userIcon, setUserIcon] = useState(true);
+    const [dados, setDados] = useState([]);
+
+ 
     const pages = [
         {
-            key: 1,
+            id: 1,
             title: 'Mercados',
             route: 'MarketRoute',
             icon: 'ShoppingCart',
         },
         {
-            key: 2,
+            id: 2,
             title: 'Serviços Locais',
             route: 'PhoneRoute',
             icon: 'Phone',
 
         },
         {
-            key: 3,
+            id: 3,
             title: 'Restaurantes',
             route: 'FoodRoute',
             icon: 'ForkKnife',
         },
         {
-            key: 4,
+            id: 4,
             title: 'Gás & Água',
             route: 'WaterRoute',
             icon: 'Drop',
         },
         {
-            key: 5,
+            id: 5,
             title: 'Emergência',
             route: 'EmergecyRoute',
             icon: 'FirstAid',
         },
         {
-            key: 6,
+            id: 6,
             title: 'Mais',
             route: 'MaisRoute',
             icon: 'Plus',
@@ -60,12 +62,11 @@ export default function Home() {
 
             <Header userIcon={userIcon} />
             <SafeAreaView style={{ flex: 1 }}>
-                
                 <ScrollView style={{ flex: 1 }}>
                     <View style={styles.cardArea}>
                         {pages.map((item) => {
                             return (
-                                <Card key={item.key} item={item} onPress={() => navigation.navigate(item.route)} />
+                                <Card key={item.id} item={item} onPress={() => navigation.navigate(item.route)} />
                             )
                         })}
                     </View>
@@ -90,11 +91,9 @@ const styles = StyleSheet.create({
         marginLeft: 8,
     },
 
-
     header: {
         paddingTop: 60,
         paddingBottom: 18,
-        // backgroundColor:'#2d0b4d',
         width: '100%',
         alignItems: 'center',
         flexDirection: 'row',

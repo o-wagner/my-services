@@ -7,9 +7,7 @@ export default function Button({ label, onPress, style, textStyle }) {
             <Text style={[styles.buttonText, textStyle]}>{label}</Text>
         </TouchableOpacity>
     )
-
 }
-
 const styles = StyleSheet.create({
     button: {
         backgroundColor: '#6700B8',
