@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 8,
         padding: 20,
-        shadowRadius: 8,
     },
     cardTitle: {
         color: "#000000",

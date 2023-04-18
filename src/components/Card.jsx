@@ -30,11 +30,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         margin: 6,
-        shadowColor: 'black',
-        shadowOffset: {width: 8, height: 10},
-        shadowColor: 'rgba(0,0,0, 0.1)',
-        shadowOpacity: 0.6,
-        shadowRadius: 7,
         justifyContent: 'space-between',
         paddingHorizontal: 35,
 

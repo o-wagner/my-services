@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     username: {
         fontSize: 25,
         color: 'white',
-        fontFamily: 'Roboto',
         fontWeight: 'bold',
         marginTop: 5,
         padding: 5
