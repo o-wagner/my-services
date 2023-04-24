@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     cardInfo: {
         width: '70%',
-        alignItems: 'left'
+        alignItems: 'flex-start',
 
     }
 

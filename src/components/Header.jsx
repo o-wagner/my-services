@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, Image, StyleSheet, View } from "react-native";
 import Logo from './imgs/Vector.png';
-import { UserCircle, List, CaretLeft } from 'phosphor-react-native';
-
+import { UserCircle, List, CaretLeft, SignOut } from 'phosphor-react-native';
+import auth from "../../firebase";
+import { signOut } from 'firebase/auth';
 
 export default function Header(props) {
     const navigation = useNavigation();
     const [userIcon, setUserIcon] = useState(props.userIcon);
-
+    
+    function handleSignOut() {
+        signOut(auth).then(() => {
+            navigation.navigate("SignIn");
+        })
+    }
     return (
         <View style={styles.header}>
             <View>
@@ -18,8 +24,8 @@ export default function Header(props) {
                         <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('User')}>
                             <UserCircle size={40} color='#ffffff' />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
-                            <List size={40} color='#ffffff' />
+                        <TouchableOpacity style={styles.menu} onPress={() => handleSignOut()}>
+                            <SignOut size={30} color='#ffffff' />
                         </TouchableOpacity>
                     </View>
                     :
@@ -28,8 +34,8 @@ export default function Header(props) {
                             <CaretLeft size={30} color='#ffffff' />
                         </TouchableOpacity>
                         <Image source={Logo} resizeMode="contain" style={styles.logo} />
-                        <TouchableOpacity style={styles.menu} onPress={() => navigation.navigate('SignIn')}>
-                            <List size={40} color='#ffffff' />
+                        <TouchableOpacity style={styles.menu} onPress={() => handleSignOut()}>
+                            <SignOut size={30} color='#ffffff' />
                         </TouchableOpacity>
                     </View>
 
@@ -42,7 +48,7 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
     user: {
-        marginRight: 6,
+        marginRight: 10,
         marginLeft: 22,
     },
     menu: {

@@ -1,26 +1,45 @@
 import {
   StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, KeyboardAvoidingView, Alert, TouchableWithoutFeedback,
-  Keyboard, Image,} from "react-native";
+  Keyboard, Image, StatusBar
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Logo from "../../components/imgs/Vector.png";
 import Button from "../../components/Button";
 import { Eye, EyeClosed } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import app from "../../../firebase";
-
+import { collection, doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import auth, {db} from "../../../firebase";
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 export default function SignIn() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [step, setStep] = useState(0);
-  const [name, setName] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [fullname, setFullname] = useState(null);
+  const [phone, setPhone] = useState(null);
+  const [age, setAge] = useState(null);
+  const [password, setPassword] = useState("");
   const [rptpassword, setRptPassword] = useState("");
   const [passwordReveal, setPasswordReveal] = useState(true);
 
-  const auth = getAuth(app);
+  const createUser = async() => {
+    console.log("currentID: ", auth.currentUser.uid);
+    const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
+        Name: username,
+        Fullname: fullname,
+        Age: age,
+        Phone: phone,
+        Email: email,        
+    })
+    console.log("Document written with ID: ", docRef.id);
+}
+
 
   function changeForm() {
     if (step === 0) {
@@ -35,15 +54,15 @@ export default function SignIn() {
       .then((userCredential) => {
         Alert.alert("Usuário Criado");
         const user = userCredential.user;
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "SignIn" }],
-        });
+        navigation.navigate("Home");
+        console.log("userCredential:", userCredential.user);
+      }).then(() => {
+        console.log("Entrou handleCreate.then2");
+        createUser();
       })
       .catch((err) => {
-        validateForm(err);
+        validateSignUp(err);
         console.log(err);
-        // Alert.alert(err.message);
       });
   };
 
@@ -51,31 +70,23 @@ export default function SignIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         navigation.reset({
           index: 0,
           routes: [{ name: "Home" }],
         });
       })
       .catch((err) => {
+        validateForm(err);
         console.log(err);
       });
   };
 
-  function validateForm(err) {
-    if (err.code === 'auth/email-already-in-use') {
-      Alert.alert("Email ja está em uso");
+  const validateSignUp = (err) => {
+    if (name === '') {
+      Alert.alert("Crie seu nome de usuário");
       return;
     }
-    if (err.code === 'auth/invalid-email') {
-      Alert.alert("Email invalido");
-      return;
-    }
-    if (err.code === 'auth/weak-password') {
-      Alert.alert("Senha muito fraca (deve conter pelo menos 6 dígitos");
-      return;
-    }
-    if (rptpassword === "") {
+    if (rptpassword === '') {
       Alert.alert("Repita sua senha");
       return;
     }
@@ -83,10 +94,31 @@ export default function SignIn() {
       Alert.alert("Senhas não conferem");
       return;
     }
+    validateForm(err);
+  }
+
+  function validateForm(err) {
+    switch (err.code) {
+      case 'auth/missing-email':
+        return Alert.alert("Preencha o campo email");
+      case 'auth/email-already-in-use':
+        return Alert.alert("Email ja está em uso");
+      case 'auth/invalid-email':
+        return Alert.alert("Preencha o campo email corretamente");
+      case 'auth/weak-password':
+        return Alert.alert("Senha muito fraca (deve conter pelo menos 6 dígitos");
+      case 'auth/missing-password':
+        return Alert.alert("Preencha o campo de senha");
+      case 'auth/wrong-password':
+        return Alert.alert("Senha incorreta");
+      case 'auth/user-not-found':
+        return Alert.alert("Usuário não encontrado");
+    }
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      
       <ImageBackground
         style={styles.background}
         source={{
@@ -94,6 +126,7 @@ export default function SignIn() {
         }}
         resizeMode="stretch"
       >
+        <StatusBar barStyle="light-content"></StatusBar>
         <SafeAreaView style={styles.container}>
           <View style={styles.header}>
             <Text style={step === 0 ? styles.titlelogin : styles.titleSignUp}>
@@ -123,6 +156,7 @@ export default function SignIn() {
                 placeholder="Digite sua senha"
                 secureTextEntry={passwordReveal}
                 value={password}
+                returnKeyType="send"
                 onChangeText={setPassword}
               />
               <TouchableOpacity
@@ -135,8 +169,6 @@ export default function SignIn() {
                 )}
               </TouchableOpacity>
 
-              <Button label="Entrar" onPress={handleSignIn} />
-
               <TouchableOpacity
                 onPress={() => navigation.navigate("ForgotPassword")}
               >
@@ -144,8 +176,8 @@ export default function SignIn() {
                   style={[
                     styles.label,
                     {
-                      marginTop: 25,
-                      textAlign: "center",
+                      marginTop: 5,
+                      textAlign: "right",
                     },
                   ]}
                 >
@@ -153,29 +185,35 @@ export default function SignIn() {
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={changeForm}>
-                <Text
-                  style={[
-                    styles.label,
-                    {
-                      marginTop: 15,
-                      textAlign: "center",
-                      textDecorationLine: "underline",
-                    },
-                  ]}
-                >
-                  Cadastre-se
-                </Text>
-              </TouchableOpacity>
+
+              <Button style={{ marginTop: 20, marginBottom: 20 }} label="Entrar" onPress={handleSignIn} />
+              
+                
+                <TouchableOpacity onPress={changeForm} style={{flexDirection: 'row', textAlign: 'center', justifyContent: 'center'}}>
+                  
+                  <Text
+                    style={[
+                      styles.label,
+                      {
+                        textAlign: 'center',
+                        fontSize: 16,
+                        // textDecorationLine: 'underline',
+                      },
+                    ]}
+                  >
+                    <Text style={[styles.label, {fontWeight: "bold"}]}>Não tem uma conta? </Text>
+                     Cadastre-se
+                  </Text>
+                </TouchableOpacity>
             </KeyboardAvoidingView>
           ) : (
             <KeyboardAvoidingView style={styles.form} behavior="padding">
-              <Text style={styles.label}>Crie seu Usuário</Text>
+              <Text style={styles.label}>Crie seu nome de usuário</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Crie seu usuário"
-                value={name}
-                onChangeText={setName}
+                placeholder="@username"
+                value={username}
+                onChangeText={setUsername}
               />
               <Text style={styles.label}>E-mail</Text>
               <TextInput
@@ -184,6 +222,7 @@ export default function SignIn() {
                 placeholder="Digite seu email"
                 keyboardType="email-address"
                 value={email}
+                secureTextEntry={false}
                 onChangeText={setEmail}
               />
 
@@ -213,6 +252,7 @@ export default function SignIn() {
                 value={rptpassword}
                 onChangeText={setRptPassword}
                 autoComplete="off"
+                returnKeyType="send"
               />
               <TouchableOpacity
                 onPress={() => setPasswordReveal(!passwordReveal)}
@@ -224,11 +264,11 @@ export default function SignIn() {
                 )}
               </TouchableOpacity>
 
-              <Button label="Criar Conta" onPress={handleCreateAccount} />
+              <Button label="Criar Conta" onPress={handleCreateAccount} style={{marginBottom: 15}} />
 
               <TouchableOpacity onPress={changeForm}>
                 <Text style={[styles.label, { textAlign: "center" }]}>
-                  Ja possuo uma conta
+                  <Text style={{fontWeight: 'bold'}}>Ja possui uma conta?</Text> Fazer Login
                 </Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>

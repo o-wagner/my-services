@@ -1,12 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {Text, StyleSheet, ImageBackground, SafeAreaView, View, TouchableOpacity, ScrollView, Image} from 'react-native';
+import { Text, StyleSheet, ImageBackground, KeyboardAvoidingView, View, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import Avatar from "../../components/imgs/Avatar.jpg"
+import auth, { db } from '../../../firebase';
+import { doc, updateDoc } from "firebase/firestore";
+import { signOut } from 'firebase/auth';
 
 export default function User() {
     const navigation = useNavigation();
+    const [edit, setEdit] = useState(false);
+    const [fullname, setFullname] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [age, setAge] = useState(null);
+    const [phone, setPhone] = useState(null);
+
+    function handleLogout() {
+        signOut(auth).then(() => {
+            navigation.navigate("SignIn");
+        })
+    }
+    const Editar = () => {
+        if (edit === false) {
+            setEdit(true);
+        } else
+            setEdit(false);
+    }
+
+    const updateUser = async () => {
+        const docRef = doc(db, "users", auth.currentUser.uid);
+        await updateDoc(docRef, {
+            Fullname: fullname,
+            Phone: phone,
+            Age: age
+        }).then(() => {
+            Alert.alert("Seu Perfil foi Atualizado");
+            Editar();
+        });
+        
+    }
+
+
 
     return (<ImageBackground
         style={styles.background}
@@ -17,28 +52,55 @@ export default function User() {
         resizeMode="stretch"
     >
         <Header />
-        {/* <SafeAreaView style={styles.page}> */}
-        <ScrollView>
+
+        {edit ? (<ScrollView>
             <View style={styles.imgArea}>
                 <TouchableOpacity>
-                    <Image 
-                    source={Avatar}
-                    style={{borderRadius: 100, width: 140, height: 140, marginTop: 10}}
+                    <Image
+                        source={Avatar}
+                        style={{ borderRadius: 100, width: 140, height: 140, marginTop: 10 }}
                     ></Image>
                 </TouchableOpacity>
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10 }}>
-                <Text style={styles.username}>@smoke.ogg</Text>
-                <Text style={{fontSize: 20, color: '#dbdbdb', }}>23, Smoke</Text>
+                <Text style={styles.username}>{username}</Text>
+                <Text style={{ fontSize: 20, color: '#dbdbdb', }}>{fullname}, {age}</Text>
             </View>
 
             <View style={styles.btnArea}>
-                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Editar Perfil" onPress={() => navigation.navigate('#')} />
-                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Favoritos" onPress={() => navigation.navigate('#')} />
-                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Logout" onPress={() => navigation.navigate('SignIn')} />
+                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Editar Perfil" onPress={Editar} />
+                <Button style={styles.btnEdit} textStyle={styles.btnText} label="Logout" onPress={() => handleLogout()} />
             </View>
-        </ScrollView>
-        {/* </SafeAreaView> */}
+        </ScrollView>) : (
+            <KeyboardAvoidingView style={styles.form} behavior="padding">
+                <Text style={styles.title}>Complete o seu perfil</Text>
+                <Text style={styles.label}>Nome Completo</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite seu nome completo"
+                    value={fullname}
+                    onChangeText={(fullname) => setFullname(fullname)}
+                />
+
+                <Text style={styles.label}>Digite sua idade</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite sua idade"
+                    value={age}
+                    onChangeText={(age) => setAge(age)}
+                />
+                <Text style={styles.label}>Digite seu telefone</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Digite seu telefone"
+                    value={phone}
+                    onChangeText={(phone) => setPhone(phone)}
+                />
+
+                <Button label="Salvar Dados" style={styles.btn} onPress={() => updateUser()} />
+
+            </KeyboardAvoidingView>
+        )}
     </ImageBackground>
     );
 }
@@ -52,6 +114,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
 
+    },
+    title: {
+        color: 'white',
+        fontSize: 25,
+        marginVertical: 25,
+        fontWeight: 'bold',
     },
     userAvatar: {
         marginBottom: 10,
@@ -85,13 +153,36 @@ const styles = StyleSheet.create({
     btnEdit: {
         backgroundColor: '#00000049',
         width: '85%',
-        height: '20%',
+        height: 60,
         borderRadius: 12,
         alignContent: "center",
         alignItems: "center",
     },
     btnText: {
         fontSize: 20,
+    },
+    form: {
+        width: '100%',
+        alignItems: "center",
+    },
+    label: {
+        color: "#fff",
+        fontSize: 16,
+        marginBottom: 10,
+        marginTop: 20,
+        marginLeft: 40,
+        alignSelf: 'flex-start'
+
+    },
+
+    input: {
+        backgroundColor: "#fff",
+        width: "80%",
+        height: 40,
+        borderRadius: 10,
+        padding: 12,
+        paddingHorizontal: 20,
+        marginBottom: 9,
     },
     btnSair: {
         width: '73%',
@@ -100,4 +191,7 @@ const styles = StyleSheet.create({
         alignContent: "center",
         alignItems: "center",
     },
+    btn: {
+        width: '40%',
+    }
 })

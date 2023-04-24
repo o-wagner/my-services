@@ -8,21 +8,38 @@ import {
   View,
   TextInput,
   TouchableWithoutFeedback,
+  Alert,
+  KeyboardAvoidingView
 } from "react-native";
 import Logo from "../../components/imgs/Vector.png";
 import Button from "../../components/Button";
+import auth from '../../../firebase';
+import { sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPassword() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
 
   function EmailSend() {
+    if(email != ''){
+      sendPasswordResetEmail(auth, email)
+      .then(()=> {
+        Alert.alert("Email enviado com sucesso!");  
+      })
+      .catch((error)=> {
+         const errorCode = error.code;
+         const errorMessage = error.message;
+         Alert.alert("Error: " + errorMessage);
+      });
+    }else{
+    Alert.alert("Insira o email para recuperar sua conta")
     console.log({ email });
-    navigation.navigate("SignIn");
+  }
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    
+    <TouchableWithoutFeedback style={{flex:1}} onPress={() => Keyboard.dismiss()}>
       <ImageBackground
         style={styles.background}
         source={{
@@ -58,7 +75,7 @@ export default function ForgotPassword() {
             <Button
               style={styles.btn}
               textStyle={styles.btnText}
-              label="Pesquisar"
+              label="Enviar"
               onPress={EmailSend}
             />
           </View>
@@ -66,6 +83,7 @@ export default function ForgotPassword() {
         {/* </View> */}
       </ImageBackground>
     </TouchableWithoutFeedback>
+    
   );
 }
 

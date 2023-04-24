@@ -1,14 +1,9 @@
 import { useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import {
-    View, Image,
-    Text, StyleSheet, TouchableOpacity, ImageBackground, SafeAreaView, ScrollView, TextInput
-} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, SafeAreaView, ScrollView, TextInput} from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
 
 export default function MarketRoute() {
-    const navigation = useNavigation();
     const [searchText, setSearchText] = useState('');
 
     const contactCard = [
