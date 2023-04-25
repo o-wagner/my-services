@@ -8,7 +8,7 @@ import Logo from "../../components/imgs/Vector.png";
 import Button from "../../components/Button";
 import { Eye, EyeClosed } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import auth, {db} from "../../../firebase";
 import { LogBox } from 'react-native';
@@ -29,9 +29,8 @@ export default function SignIn() {
   const [passwordReveal, setPasswordReveal] = useState(true);
 
   const createUser = async() => {
-    console.log("currentID: ", auth.currentUser.uid);
     const docRef = await setDoc(doc(db, "users", auth.currentUser.uid), {
-        Name: username,
+        Username: username,
         Fullname: fullname,
         Age: age,
         Phone: phone,
@@ -57,7 +56,6 @@ export default function SignIn() {
         navigation.navigate("Home");
         console.log("userCredential:", userCredential.user);
       }).then(() => {
-        console.log("Entrou handleCreate.then2");
         createUser();
       })
       .catch((err) => {
@@ -128,6 +126,9 @@ export default function SignIn() {
       >
         <StatusBar barStyle="light-content"></StatusBar>
         <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.form} behavior={Platform.OS === "ios" ? "position" : "height"} 
+            enabled
+            keyboardVerticalOffset={90}>
           <View style={styles.header}>
             <Text style={step === 0 ? styles.titlelogin : styles.titleSignUp}>
               {step === 0 ? "Faça Login no" : "Crie Sua Conta"}
@@ -140,7 +141,7 @@ export default function SignIn() {
           </View>
 
           {step === 0 ? (
-            <KeyboardAvoidingView style={styles.form} behavior="padding">
+            <>
               <Text style={styles.label}>E-mail</Text>
               <TextInput
                 style={styles.input}
@@ -184,11 +185,7 @@ export default function SignIn() {
                   Esqueceu sua senha?
                 </Text>
               </TouchableOpacity>
-
-
               <Button style={{ marginTop: 20, marginBottom: 20 }} label="Entrar" onPress={handleSignIn} />
-              
-                
                 <TouchableOpacity onPress={changeForm} style={{flexDirection: 'row', textAlign: 'center', justifyContent: 'center'}}>
                   
                   <Text
@@ -197,7 +194,6 @@ export default function SignIn() {
                       {
                         textAlign: 'center',
                         fontSize: 16,
-                        // textDecorationLine: 'underline',
                       },
                     ]}
                   >
@@ -205,9 +201,9 @@ export default function SignIn() {
                      Cadastre-se
                   </Text>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+                </>
           ) : (
-            <KeyboardAvoidingView style={styles.form} behavior="padding">
+            <>
               <Text style={styles.label}>Crie seu nome de usuário</Text>
               <TextInput
                 style={styles.input}
@@ -271,8 +267,9 @@ export default function SignIn() {
                   <Text style={{fontWeight: 'bold'}}>Ja possui uma conta?</Text> Fazer Login
                 </Text>
               </TouchableOpacity>
-            </KeyboardAvoidingView>
+          </>
           )}
+          </KeyboardAvoidingView>
         </SafeAreaView>
       </ImageBackground>
     </TouchableWithoutFeedback>
@@ -293,25 +290,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   header: {
-    height: "15%",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
-  },
+    marginBottom: 20
+},
+
   title: {
     color: "#fff",
     fontSize: 24,
     marginTop: 10,
     fontWeight: "bold",
     textTransform: "uppercase",
-    // marginBottom: 10,
   },
+  
   titlelogin: {
     color: "#fff",
     fontSize: 17,
     position: "absolute",
-    top: 3,
-    left: 1,
+    top: 7,
+    left: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
@@ -319,8 +317,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     position: "absolute",
-    top: 20,
-    left: 1,
+    top: 10,
+    left: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
   },
@@ -329,8 +327,11 @@ const styles = StyleSheet.create({
     height: 70,
   },
   form: {
-    marginTop: 20,
-    width: "70%",
+    width: "80%",
+    padding: 20,
+    flexDirection: 'column',
+    justifyContent: 'center',
+
   },
   label: {
     color: "#fff",
@@ -347,6 +348,7 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingHorizontal: 20,
     marginBottom: 9,
+    
   },
   eyeIcon: {
     position: "absolute",
