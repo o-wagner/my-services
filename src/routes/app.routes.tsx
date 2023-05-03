@@ -7,6 +7,9 @@ import PhoneRoute from "../screens/PhoneRoute";
 import FoodRoute from "../screens/FoodRoute";
 import User from '../screens/User';
 import ForgotPassword from '../screens/ForgotPassword';
+import WaterRoute from "../screens/WaterRoute";
+import EmergencyRoute from "../screens/EmergencyRoute";
+import FastFoodRoute from "../screens/FastFoodRoute";
 import auth from "../../firebase";
 import {onAuthStateChanged} from "firebase/auth";
 
@@ -40,6 +43,9 @@ export default function AppRoutes() {
                 <Screen name="PhoneRoute" component={PhoneRoute} />
                 <Screen name="FoodRoute" component={FoodRoute} />
                 <Screen name="ForgotPassword" component={ForgotPassword} />
+                <Screen name="WaterRoute" component={WaterRoute}/>
+                <Screen name="EmergencyRoute" component={EmergencyRoute}/>
+                <Screen name="FastFoodRoute" component={FastFoodRoute}/>
                 </Navigator>):(
             <Navigator screenOptions={{ headerShown: false }}>
                 <Screen name="SignIn" component={SignIn} />
@@ -49,6 +55,7 @@ export default function AppRoutes() {
                 <Screen name="PhoneRoute" component={PhoneRoute} />
                 <Screen name="FoodRoute" component={FoodRoute} />
                 <Screen name="ForgotPassword" component={ForgotPassword} />
+                <Screen name="WaterRoute" component={WaterRoute}/>
             </Navigator> )}
         </>
     )

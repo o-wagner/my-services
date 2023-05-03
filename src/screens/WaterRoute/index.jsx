@@ -7,29 +7,26 @@ import { MaskSad } from 'phosphor-react-native';
 import { db } from '../../../firebase';
 import { collection, getDocs } from "firebase/firestore";
 
-export default function PhoneRoute() {
+export default function WaterRoute() {
     const navigation = useNavigation();
     const [searchText, setSearchText] = useState('')
     const [contactCard, setContactCard] = useState([]);
-    let nome = ('Serviços Locais');
-    let icon = ('Phone');
+    let nome = ('Gás & Água');
+    let icon = ('Drop');
 
 
     useEffect(() => {
-        const readPhone = async () => {
-            const querySnapshot = await getDocs(collection(db, "servicos"));
+        const readWater = async () => {
+            const querySnapshot = await getDocs(collection(db, "gaseagua"));
             setContactCard(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
-        readPhone();
+        readWater();
     }, [])
 
 
     const ContactFilter = contactCard.filter(contact => {
         return contact.title.toLowerCase().includes(searchText.toLowerCase())
     });
-
-
-
 
     return (<ImageBackground
         style={styles.background}
@@ -39,7 +36,7 @@ export default function PhoneRoute() {
         }}
         resizeMode="stretch"
     >
-        <HeaderSearch icon={icon} nome={nome} searchText={searchText} setSearchText={setSearchText} />
+        <HeaderSearch nome={nome} icon={icon} searchText={searchText} setSearchText={setSearchText} />
             <ScrollView >
                 <View style={styles.cardArea}>
                     {ContactFilter.length > 0 ?

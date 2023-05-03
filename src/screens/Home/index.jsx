@@ -3,52 +3,21 @@ import { Text, StyleSheet, TouchableOpacity, Image, ImageBackground, View, SafeA
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import React, {useState, useEffect} from 'react'
+import { db } from '../../../firebase';
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Home() {
     const navigation = useNavigation();
-    const [userIcon, setUserIcon] = useState(true);
-    const [dados, setDados] = useState([]);
+    let userIcon = (true);
+    const [pages, setPages] = useState([]);
 
- 
-    const pages = [
-        {
-            id: 1,
-            title: 'Mercados',
-            route: 'MarketRoute',
-            icon: 'ShoppingCart',
-        },
-        {
-            id: 2,
-            title: 'Serviços Locais',
-            route: 'PhoneRoute',
-            icon: 'Phone',
-
-        },
-        {
-            id: 3,
-            title: 'Restaurantes',
-            route: 'FoodRoute',
-            icon: 'ForkKnife',
-        },
-        {
-            id: 4,
-            title: 'Gás & Água',
-            route: 'WaterRoute',
-            icon: 'Drop',
-        },
-        {
-            id: 5,
-            title: 'Emergência',
-            route: 'EmergecyRoute',
-            icon: 'FirstAid',
-        },
-        {
-            id: 6,
-            title: 'Mais',
-            route: 'MaisRoute',
-            icon: 'Plus',
+    useEffect(() => {
+        const readMarket = async () => {
+            const querySnapshot = await getDocs(collection(db, "rotas"))
+            setPages(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
-    ]
+        readMarket();
+    }, [])
 
     return (
         <ImageBackground
@@ -69,6 +38,7 @@ export default function Home() {
                                 <Card key={item.id} item={item} onPress={() => navigation.navigate(item.route)} />
                             )
                         })}
+                        
                     </View>
                 </ScrollView>
             </SafeAreaView>

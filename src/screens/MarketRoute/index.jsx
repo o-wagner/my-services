@@ -1,49 +1,32 @@
-import { useState } from 'react'
-import {View, Text, StyleSheet, ImageBackground, SafeAreaView, ScrollView, TextInput} from 'react-native';
+import { useState, useEffect } from 'react'
+import { View, Text, StyleSheet, ImageBackground, ScrollView, Alert } from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
+import { MaskSad } from 'phosphor-react-native';
+import { db } from '../../../firebase';
+import { collection, getDocs } from "firebase/firestore";
+
 
 export default function MarketRoute() {
     const [searchText, setSearchText] = useState('');
+    const [contactCard, setContactCard] = useState([]);
+    let nome = ('Mercados');
+    let icon = ('ShoppingCart');
 
-    const contactCard = [
-        {
-            id: 1,
-            title: 'Supermercados Bicalho',
-            phone: '(33)99898-0556',
-            favorite: false,
-
-        },
-        {
-            id: 2,
-            title: 'Supermercado K&K',
-            phone: '(33)99848-0356',
-            favorite: false,
-        },
-        {
-            id: 3,
-            title: 'Mercadinho',
-            phone: '(33)99499-6556',
-            favorite: false,
-        },
-        {
-            id: 4,
-            title: 'Mercadão',
-            phone: '(33)94499-6596',
-            favorite: false,
-        },
-        {
-            id: 5,
-            title: 'Mercado da Dona Zilda',
-            phone: '(33)94499-6596',
-            favorite: false,
-        },
-    ]
+    useEffect(() => {
+        const readMarket = async () => {
+            const querySnapshot = await getDocs(collection(db, "mercados"));
+            setContactCard(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        }
+        readMarket();
+    }, [])
 
 
     const ContactFilter = contactCard.filter(contact => {
-        return contact.title.toLowerCase().includes(searchText.toLowerCase());
+        return contact.title.toLowerCase().includes(searchText.toLowerCase())
     });
+
+
 
     return (<ImageBackground
         style={styles.background}
@@ -53,23 +36,24 @@ export default function MarketRoute() {
         }}
         resizeMode="stretch"
     >
-        <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
-            <ScrollView >
-                <View style={styles.cardArea}>
-                    <Text style={styles.title}>MERCADOS</Text>
-                    {ContactFilter.length > 0 ?
-                        (ContactFilter.map((item) => {
-                            return (
-                                <ContactCard key={item.id} item={item} searchText={searchText} />
-                            )
-                        }
-                        )) :
-                        <View>
-                            <Text style={styles.title}>Não Achou</Text>
-                        </View>
+        <HeaderSearch nome={nome} icon={icon} searchText={searchText} setSearchText={setSearchText} />
+        <ScrollView >
+            <View style={styles.cardArea}>
+                {ContactFilter.length > 0 ?
+                    (ContactFilter.map((item) => {
+                        return (
+                            <ContactCard key={item.id} item={item} searchText={searchText} />
+                        )
                     }
-                </View>
-            </ScrollView>
+                    )) :
+                    <View style={{ marginHorizontal: 30, marginVertical: 15, alignItems: 'center', padding: 20 }} >
+                    <MaskSad style={{ marginBottom: 10 }} size={35} color='#d8d8d8' />
+                    <Text style={{ fontSize: 18, color: 'white', textAlign: 'justify' }}>Desculpe, Não encontramos nada em nossos registros...</Text>
+                    </View>
+                }
+
+            </View>
+        </ScrollView>
     </ImageBackground>
     )
 }
@@ -109,7 +93,7 @@ const styles = StyleSheet.create({
     },
     cardArea: {
         justifyContent: 'space-between',
-        flexDirection: 'Column',
+        flexDirection: 'column',
         flexWrap: 'nowrap',
         justifyContent: 'center',
         alignItems: 'center',

@@ -7,29 +7,27 @@ import { MaskSad } from 'phosphor-react-native';
 import { db } from '../../../firebase';
 import { collection, getDocs } from "firebase/firestore";
 
-export default function PhoneRoute() {
+export default function EmergencyRoute() {
     const navigation = useNavigation();
     const [searchText, setSearchText] = useState('')
     const [contactCard, setContactCard] = useState([]);
-    let nome = ('Serviços Locais');
-    let icon = ('Phone');
-
+    let nome = ('Emergência');
+    let icon = ('FirstAid');
 
     useEffect(() => {
-        const readPhone = async () => {
-            const querySnapshot = await getDocs(collection(db, "servicos"));
+        const readEmergency = async () => {
+            const querySnapshot = await getDocs(collection(db, "emergencia"));
             setContactCard(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
-        readPhone();
+        readEmergency();
+        
+
     }, [])
 
 
     const ContactFilter = contactCard.filter(contact => {
         return contact.title.toLowerCase().includes(searchText.toLowerCase())
     });
-
-
-
 
     return (<ImageBackground
         style={styles.background}
@@ -39,9 +37,12 @@ export default function PhoneRoute() {
         }}
         resizeMode="stretch"
     >
+        
         <HeaderSearch icon={icon} nome={nome} searchText={searchText} setSearchText={setSearchText} />
             <ScrollView >
                 <View style={styles.cardArea}>
+                    
+
                     {ContactFilter.length > 0 ?
                         (ContactFilter.map((item) => {
                             return (

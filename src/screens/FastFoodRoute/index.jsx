@@ -1,35 +1,33 @@
-import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react'
-import {View, Text, StyleSheet, ImageBackground, ScrollView} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
 import { MaskSad } from 'phosphor-react-native';
 import { db } from '../../../firebase';
 import { collection, getDocs } from "firebase/firestore";
+import Hamburger from 'phosphor-react-native';
 
-export default function PhoneRoute() {
+export default function FastFoodRoute() {
     const navigation = useNavigation();
-    const [searchText, setSearchText] = useState('')
+    const [searchText, setSearchText] = useState('');
     const [contactCard, setContactCard] = useState([]);
-    let nome = ('Serviços Locais');
-    let icon = ('Phone');
-
+    let nome = ('Lanches');
+    let icon = ('Hamburger');
 
     useEffect(() => {
-        const readPhone = async () => {
-            const querySnapshot = await getDocs(collection(db, "servicos"));
+        const readFood = async () => {
+            const querySnapshot = await getDocs(collection(db, "lanches"));
             setContactCard(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
-        readPhone();
+        readFood();
     }, [])
 
 
+
     const ContactFilter = contactCard.filter(contact => {
-        return contact.title.toLowerCase().includes(searchText.toLowerCase())
+        return contact.title.toLowerCase().includes(searchText.toLowerCase());
     });
-
-
-
 
     return (<ImageBackground
         style={styles.background}
@@ -39,10 +37,11 @@ export default function PhoneRoute() {
         }}
         resizeMode="stretch"
     >
+
         <HeaderSearch icon={icon} nome={nome} searchText={searchText} setSearchText={setSearchText} />
-            <ScrollView >
-                <View style={styles.cardArea}>
-                    {ContactFilter.length > 0 ?
+        <ScrollView >
+            <View style={styles.cardArea}>
+                {ContactFilter.length > 0 ?
                         (ContactFilter.map((item) => {
                             return (
                                 <ContactCard key={item.id} item={item} searchText={searchText} />
@@ -51,12 +50,11 @@ export default function PhoneRoute() {
                         )) :
                         <View style={{marginHorizontal: 30, marginVertical: 15, alignItems:'center', padding: 20}} >
                             <MaskSad style={{marginBottom: 10}} size={35} color='#d8d8d8'/>
-                            <Text style={{fontSize: 18, color: 'white', textAlign: 'justify'}}>Desculpe, Não encontramos nada em nossos registros...</Text>
+                            <Text style={{fontSize: 18, color: 'white', textAlign: 'justify'}}>Desculpe, Não encontramos nada em nosso registro...</Text>
                         </View>
                     }
-                </View>
-            </ScrollView>
-
+            </View>
+        </ScrollView>
     </ImageBackground>
     )
 }
@@ -66,7 +64,9 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
     },
+    
     market: {
+        marginRight: 45,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row'
@@ -76,9 +76,9 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        marginBottom: 10,
-
+        marginBottom: 20,
     },
+
     button: {
         borderRadius: 7,
         backgroundColor: 'grey',
@@ -104,4 +104,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginTop: 20
     },
+ 
+
 })

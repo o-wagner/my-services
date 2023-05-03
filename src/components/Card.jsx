@@ -1,16 +1,16 @@
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native'
-import { Plus, ShoppingCart, ForkKnife, Phone , Drop , FirstAid, CaretRight } from 'phosphor-react-native';
+import { ShoppingCart, ForkKnife, Phone , Drop , FirstAid, CaretRight, Hamburger } from 'phosphor-react-native';
 
-export default function Card({ item, onPress}){
+export default function Card({ key , item, onPress}){
     return(
-        <TouchableOpacity key={item.key} style={styles.card} onPress={onPress}>
+        <TouchableOpacity key={key} style={styles.card} onPress={onPress}>
             <View style={styles.iconTitle}>
             {item.icon === 'ShoppingCart' && <ShoppingCart size={35} color='#d8d8d8' />}
             {item.icon === 'Phone' && <Phone size={35} color='#d8d8d8' />}
             {item.icon === 'ForkKnife' && <ForkKnife size={35} color='#d8d8d8' />}
             {item.icon === 'Drop' && <Drop size={35} color='#d8d8d8' />}
             {item.icon === 'FirstAid' && <FirstAid size={35} color='#d8d8d8' />}
-            {item.icon === 'Plus' && <Plus size={35} color='#d8d8d8' />}
+            {item.icon === 'Hamburger' && <Hamburger size={35} color='#d8d8d8' />}
             <Text style={styles.cardTitle}>{item.title}</Text>
             </View>
             

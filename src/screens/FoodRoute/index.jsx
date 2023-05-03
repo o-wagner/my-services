@@ -1,53 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, ImageBackground, SafeAreaView, ScrollView } from 'react-native';
 import ContactCard from '../../components/ContactCard';
 import HeaderSearch from '../../components/HeaderSearch';
+import { MaskSad } from 'phosphor-react-native';
+import { db } from '../../../firebase';
+import { collection, getDocs } from "firebase/firestore";
 
 export default function FoodRoute() {
     const navigation = useNavigation();
     const [searchText, setSearchText] = useState('');
+    const [contactCard, setContactCard] = useState([]);
+    let nome = ('Restaurantes');
+    let icon = ('ForkKnife');
 
-    const contactCard = [
-        {
-            id: 1,
-            title: 'Dorinha Marmitex',
-            phone: '(33)99898-0556',
-            favorite: false,
+    useEffect(() => {
+        const readPhone = async () => {
+            const querySnapshot = await getDocs(collection(db, "restaurantes"));
+            setContactCard(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        }
+        readPhone();
+    }, [])
 
 
-        },
-        {
-            id: 2,
-            title: 'Henriqqs Restaurante',
-            phone: '(33)99848-0356',
-            favorite: false,
-        },
-        {
-            id: 3,
-            title: 'Restaurante Sabor do Campo',
-            phone: '(33)99499-6556',
-            favorite: false,
-        },
-        {
-            id: 4,
-            title: 'Mercadão',
-            phone: '(33)94499-6596',
-            favorite: false,
-        },
-        {
-            id: 5,
-            title: 'Mercado da Dona Zilda',
-            phone: '(33)94499-6596',
-            favorite: false,
-        },
-    ];
 
     const ContactFilter = contactCard.filter(contact => {
         return contact.title.toLowerCase().includes(searchText.toLowerCase());
     });
-
-    console.log(searchText);
 
     return (<ImageBackground
         style={styles.background}
@@ -58,10 +37,9 @@ export default function FoodRoute() {
         resizeMode="stretch"
     >
 
-        <HeaderSearch searchText={searchText} setSearchText={setSearchText} />
+        <HeaderSearch nome={nome} icon={icon} searchText={searchText} setSearchText={setSearchText} />
         <ScrollView >
             <View style={styles.cardArea}>
-                <Text style={styles.title}>Restaurantes</Text>
                 {ContactFilter.length > 0 ?
                         (ContactFilter.map((item) => {
                             return (
@@ -69,8 +47,9 @@ export default function FoodRoute() {
                             )
                         }
                         )) :
-                        <View>
-                            <Text style={styles.title}>Não Achou</Text>
+                        <View style={{marginHorizontal: 30, marginVertical: 15, alignItems:'center', padding: 20}} >
+                            <MaskSad style={{marginBottom: 10}} size={35} color='#d8d8d8'/>
+                            <Text style={{fontSize: 18, color: 'white', textAlign: 'justify'}}>Desculpe, Não encontramos nada em nosso registro...</Text>
                         </View>
                     }
             </View>
@@ -117,7 +96,7 @@ const styles = StyleSheet.create({
     },
     cardArea: {
         justifyContent: 'space-between',
-        flexDirection: 'Column',
+        flexDirection: 'column',
         flexWrap: 'nowrap',
         justifyContent: 'center',
         alignItems: 'center',
